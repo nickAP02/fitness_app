@@ -2,7 +2,7 @@ import 'dart:convert';
 
 class Exercise {
   late String? description;
-  late double? time;
+  late Duration? time;
   late String? category;
   late String? image;
 

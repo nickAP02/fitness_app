@@ -1,21 +1,30 @@
 import 'dart:developer';
-
 import 'package:fitness_app/components/home/home.dart';
+import 'package:fitness_app/components/home/profile.dart';
 import 'package:fitness_app/components/home/search_page.dart';
-import 'package:fitness_app/utils/constant.dart';
+import 'package:fitness_app/service/local_storage.dart';
 import 'package:flutter/material.dart';
 
+import '../../utils/app_theme.dart';
+import '../../utils/colors.dart';
+import '../settings.dart';
+
 class BottomNavBar extends StatelessWidget {
-  const BottomNavBar({
+  final LocalStorage userStorage = LocalStorage();
+  BottomNavBar({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    Color newColor=const Color.fromARGB(255, 255, 255, 255);
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
-      selectedItemColor: secondaryColor,
-      backgroundColor: Colors.white,
+      onTap: (value) => {
+        newColor =AppColors.primaryColor
+      },
+      // selectedItemColor:newColor,
+      backgroundColor: AppTheme.theme.scaffoldBackgroundColor,
       items: [
         BottomNavigationBarItem(
           label: "Accueil",
@@ -28,7 +37,7 @@ class BottomNavBar extends StatelessWidget {
                 ),
               )
             }, 
-            icon: const Icon(Icons.home_outlined,color: primaryColor,)
+            icon: const Icon(Icons.home_outlined,color: AppColors.secondaryColor,)
           )
         ),
         BottomNavigationBarItem(
@@ -42,7 +51,7 @@ class BottomNavBar extends StatelessWidget {
                 ),
               )
             }, 
-            icon: const Icon(Icons.search_rounded,color: primaryColor,)
+            icon: const Icon(Icons.search_rounded,color: AppColors.secondaryColor,)
           )
         ),
         BottomNavigationBarItem(
@@ -50,9 +59,25 @@ class BottomNavBar extends StatelessWidget {
           icon: IconButton(
             onPressed: ()=>{
               log("boutton profile"),
-
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context)=> const Profile()
+                ),
+              )
             }, 
-            icon: const Icon(Icons.account_circle,color: primaryColor,)
+            icon: const Icon(Icons.account_circle,color: AppColors.secondaryColor,)
+          )
+        ),
+        BottomNavigationBarItem(
+          label: "Paramètres",
+          icon: IconButton(
+            onPressed: ()=>{
+              log("boutton settings"),
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context)=>const Settings())
+              )
+            }, 
+            icon: const Icon(Icons.settings,color: AppColors.secondaryColor,)
           )
         )
       ]

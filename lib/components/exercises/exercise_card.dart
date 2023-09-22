@@ -1,10 +1,12 @@
 import 'package:fitness_app/utils/constant.dart';
 import 'package:flutter/material.dart';
 
+import '../../utils/colors.dart';
+
 // ignore: must_be_immutable
 class Exercice extends StatelessWidget {
   String description;
-  double time;
+  dynamic time;
   String category;
   String image;
   Exercice({super.key, 
@@ -19,17 +21,22 @@ class Exercice extends StatelessWidget {
     return Container(
         height: 120,
         width: 80,
+        margin: const EdgeInsets.all(5),
         decoration: BoxDecoration(
-          color: primaryColor,
+          color: AppColors.primaryColor,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: primaryColor
+            color: AppColors.primaryColor
           ),
           image: DecorationImage(
+          colorFilter: ColorFilter.mode(
+            Colors.black.withOpacity(0.5),
+            BlendMode.darken,
+          ),
           fit: BoxFit.cover,
           scale: 1,
           opacity: 1,
-          image: AssetImage(assetUrl+image)
+          image: AssetImage(image)
         ),
         ),
         child: Center(
@@ -37,11 +44,11 @@ class Exercice extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.only(bottom:45.0,left: 50),
+                padding: const EdgeInsets.only(bottom:65.0,left: 80),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    color: primaryColor,
+                    color: AppColors.primaryColor,
                   ),
                   height: 20,
                   width: 60,
@@ -58,22 +65,22 @@ class Exercice extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right:18.0),
+                padding: const EdgeInsets.only(right:58.0),
                 child: Text(
                   description,
                   style: const TextStyle(
                     fontSize: 10,
-                    color: primaryColor
+                    color: AppColors.primaryColor
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 41.0,top: 5),
+                padding: const EdgeInsets.only(right: 90.0,top: 5),
                 child: Text(
                   '$time min',
                   style: const TextStyle(
                     fontSize: 10,
-                    color: primaryColor
+                    color: AppColors.primaryColor
                   ),
                 ),
               ),

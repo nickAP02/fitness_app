@@ -1,14 +1,22 @@
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:fitness_app/components/auth/signup_page.dart';
 import 'package:fitness_app/firebase_options.dart';
+import 'package:fitness_app/service/local_storage.dart';
 import 'package:fitness_app/utils/app_theme.dart';
+import 'package:fitness_app/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'components/home/home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
    options: DefaultFirebaseOptions.currentPlatform,
- );
+  );
+  late LocalStorage storage;
+  storage = await LocalStorage().init();
+
   runApp(const MyApp());
 }
 
@@ -19,10 +27,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      onGenerateRoute:AppPages.generateRouteSettings,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate
+      ],
+      supportedLocales: const [
+        Locale('en'), 
+        Locale('fr')
+      ],
       debugShowCheckedModeBanner: false,
       title: 'MyFitness App',
-      theme: theme,
-      home: const SignUp(),
+      theme: AppTheme.theme,
+    // home: const Home(),
     );
   }
 }

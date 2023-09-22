@@ -1,7 +1,8 @@
 import 'dart:developer';
-import 'package:fitness_app/components/home/plan.dart';
-import 'package:fitness_app/utils/constant.dart';
+import 'package:fitness_app/components/plans/plan.dart';
 import 'package:flutter/material.dart';
+
+import '../../utils/colors.dart';
 
 class Preference extends StatefulWidget {
   const Preference({super.key});
@@ -38,7 +39,7 @@ class _PreferenceState extends State<Preference> {
                           "Préférence de langue",
                           style: TextStyle(
                             fontSize: 20,
-                            color: primaryColor
+                            color: AppColors.primaryColor
                         ),
                       ),
                     ),
@@ -50,10 +51,10 @@ class _PreferenceState extends State<Preference> {
                             height: 120,
                             width: 120,
                             decoration: BoxDecoration(
-                              color: primaryColor,
+                              color: AppColors.primaryColor,
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(
-                                color: primaryColor
+                                color: AppColors.primaryColor
                               ),
                             ),
                             child: const Center(
@@ -85,7 +86,7 @@ class _PreferenceState extends State<Preference> {
                             height: 120,
                             width: 120,
                             decoration: BoxDecoration(
-                              color: primaryColor,
+                              color: AppColors.primaryColor,
                               borderRadius: BorderRadius.circular(10)
                             ),
                             child: const Center(
@@ -116,8 +117,8 @@ class _PreferenceState extends State<Preference> {
                     ),
                     ElevatedButton(
                       style: ButtonStyle(
-                        overlayColor: MaterialStateProperty.all(primaryColor),
-                        shadowColor:  MaterialStateProperty.all(primaryColor),
+                        overlayColor: MaterialStateProperty.all(AppColors.primaryColor),
+                        shadowColor:  MaterialStateProperty.all(AppColors.primaryColor),
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                       ),
                       child: const Text(

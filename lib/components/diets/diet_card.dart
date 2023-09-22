@@ -1,5 +1,6 @@
-import 'package:fitness_app/utils/constant.dart';
 import 'package:flutter/material.dart';
+
+import '../../utils/colors.dart';
 
 // ignore: must_be_immutable
 class Diet extends StatelessWidget {
@@ -19,17 +20,18 @@ class Diet extends StatelessWidget {
     return Container(
         height: 120,
         width: 110,
+        margin: const EdgeInsets.all(5),
         decoration: BoxDecoration(
-          color: primaryColor,
+          color: AppColors.primaryColor,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: primaryColor
+            color: AppColors.primaryColor
           ),
           image: DecorationImage(
           fit: BoxFit.cover,
           scale: 1,
           opacity: 1,
-          image: AssetImage(assetUrl+image)
+          image: AssetImage(image)
         ),
         ),
         child: Center(
@@ -37,11 +39,11 @@ class Diet extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.only(bottom:45.0,left: 50),
+                padding: const EdgeInsets.only(bottom:65.0,right: 90),
                 child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: primaryColor,
+                      color: AppColors.primaryColor,
                   ),
                   height: 20,
                   width: 60,
@@ -49,7 +51,7 @@ class Diet extends StatelessWidget {
                     child: Text(
                       category,
                       style: const TextStyle(
-                        backgroundColor: primaryColor,
+                        backgroundColor: AppColors.primaryColor,
                         fontSize: 6,
                         color: Colors.white
                       ),
@@ -58,22 +60,22 @@ class Diet extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right:18.0),
+                padding: const EdgeInsets.only(right:58.0),
                 child: Text(
                   description,
                   style: const TextStyle(
                     fontSize: 10,
-                    color: primaryColor
+                    color: AppColors.primaryColor
                   )
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 41.0,top: 5),
+                padding: const EdgeInsets.only(right: 62.0,top: 5),
                 child: Text(
                   '$calory kCal',
                   style: const TextStyle(
                     fontSize: 10,
-                    color: primaryColor
+                    color: AppColors.primaryColor
                   ),
                 ),
               ),

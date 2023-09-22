@@ -1,6 +1,6 @@
-import 'package:fitness_app/utils/constant.dart';
 import 'package:flutter/material.dart';
 
+import '../../utils/colors.dart';
 import '../home/home.dart';
 
 // ignore: must_be_immutable
@@ -21,13 +21,17 @@ class Plan extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
         border: Border.all(
-          color: primaryColor
+          color: AppColors.primaryColor
         ),
         image: DecorationImage(
+          colorFilter: ColorFilter.mode(
+            Colors.black.withOpacity(0.5),
+            BlendMode.darken,
+          ),
           fit: BoxFit.cover,
           scale: 1,
           opacity: 1,
-          image: AssetImage(assetUrl+image)
+          image: AssetImage(image)
         ),
       ),
       child: GestureDetector(
