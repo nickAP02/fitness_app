@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:fitness_app/utils/constant.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/colors.dart';

@@ -3,15 +3,18 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fitness_app/components/diets/diet_card.dart';
 import 'package:fitness_app/components/exercises/exercise_card.dart';
 import 'package:fitness_app/components/exercises/exercise_detail.dart';
-import 'package:fitness_app/components/exercises/plan_card.dart';
+import 'package:fitness_app/components/plans/plan_card.dart';
 import 'package:fitness_app/components/gyms/gym_center.dart';
 import 'package:fitness_app/components/reusable/bottom_navbar.dart';
+import 'package:fitness_app/service/local_storage.dart';
 import 'package:fitness_app/utils/app_theme.dart';
 import 'package:fitness_app/utils/images.dart';
 import 'package:fitness_app/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/colors.dart';
+import '../diets/diet_details.dart';
 import '../reusable/app_drawer.dart';
 
 
@@ -27,7 +30,11 @@ class _HomeState extends State<Home> {
   bool loading = false;
   List<GymCenter> gyms = [];
   int _current = 0;
-  
+  int notification_count=0;
+  void getUserInfo() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    notification_count = prefs.getInt("notification_count")!;
+  }
   @override
   void initState() {
     super.initState();
@@ -66,11 +73,13 @@ class _HomeState extends State<Home> {
           ),
         ),
         actions: [
+          notification_count>0 ?
           Stack(
             children: [
               IconButton(
                 onPressed: (){
                   log("icone notif");
+                  Navigator.of(context).pushNamed(AppRoutes.NOTIFICATION);
                 }, 
                 icon:const Icon(
                   Icons.notifications,
@@ -89,9 +98,9 @@ class _HomeState extends State<Home> {
                         .primaryColor, // Couleur du cercle de notification
                     shape: BoxShape.circle,
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Text(
-                    "2",
+                    notification_count.toString(),
                     style: TextStyle(
                       color: AppColors.primaryTextColor
                     ),
@@ -100,6 +109,10 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ]
+          ):
+          const Icon(
+            Icons.notifications,
+            color: AppColors.secondaryColor,
           )
         ],
       ) ,
@@ -311,6 +324,7 @@ class _HomeState extends State<Home> {
                 GestureDetector(
                   onTap: () {
                     log("liste des diets");
+                    Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.NUTRITION, (route) => false);
                   },
                   child: const Padding(
                     padding: EdgeInsets.all(15.0),
@@ -331,11 +345,25 @@ class _HomeState extends State<Home> {
                 shrinkWrap: true,
                 padding: const EdgeInsets.only(left: 10,right: 15,top: 10),
                 children: [
-                  Diet(
-                    description: "Salade viet", 
-                    calory: 120, 
-                    category: "Maintien du corps", 
-                    image: AppImages.dietSample1
+                  GestureDetector(
+                    onTap:(){
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context)=> DietDetails(
+                            description: "Salade viet composée de gingembre, d'oignons, de ciboule, de comcombre et de tomates fraiches",
+                            calory: 120,
+                            category: "Maintien du corps",
+                            image:  AppImages.dietSample1,
+                          )
+                        ),
+                      );
+                    },
+                    child: Diet(
+                      description: "Salade viet", 
+                      calory: 120, 
+                      category: "Maintien du corps", 
+                      image: AppImages.dietSample1
+                    ),
                   ),
                   Diet(
                     description: "Salade viet", 

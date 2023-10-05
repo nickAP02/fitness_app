@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../utils/colors.dart';
+import '../reusable/custom_appbar.dart';
 import '../reusable/header.dart';
 
 // ignore: must_be_immutable
@@ -39,54 +40,7 @@ class _GymCenterDetailsState extends State<GymCenterDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: NestedScrollView(
-        controller: _scrollController,
-        headerSliverBuilder: (context, innerBoxIsScrolled) {
-          return [
-            SliverAppBar(
-              bottom:PreferredSize(
-                preferredSize: const Size.fromHeight(1.0),
-                child: Container(
-                  color: Colors.grey,
-                  height: 1.0,
-                ),
-              ),
-              elevation: 0,
-              centerTitle: true,
-              leading: IndexedSemantics(
-                index: 0,
-                child: IconButton(
-                  icon: const Icon(Icons.arrow_back_ios_new,
-                      color: AppColors.secondaryColor),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
-              backgroundColor:AppColors.primaryColor,
-              pinned: true,
-              expandedHeight: 275,
-              title: Text(
-                widget.title.length > 25
-                    ? "${widget.title.substring(0, 25)}..."
-                    : widget.title,
-                style: const TextStyle(
-                  color: AppColors.primaryTextColor
-                ),
-              ),
-              flexibleSpace: FlexibleSpaceBar(
-                collapseMode: CollapseMode.parallax,
-                background: Image.asset(widget.image)
-                // Image.network(
-                //   widget.image,
-                //   fit: BoxFit.cover,
-                //   height: 100,
-                //   width: 100,
-                // ),
-              ),
-            ),
-          ];
-        },
+      appBar:buildAppBar(widget.title, context),
         body: CustomScrollView(
           scrollBehavior: const MaterialScrollBehavior(),
           slivers: [
@@ -96,6 +50,7 @@ class _GymCenterDetailsState extends State<GymCenterDetails> {
                   child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Image.asset(widget.image),
                   Header(
                     text: "Localisation",
                   ),
@@ -133,8 +88,6 @@ class _GymCenterDetailsState extends State<GymCenterDetails> {
             ),
           ],
         ),
-      ),
-
     );
   }
 }

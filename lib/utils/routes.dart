@@ -3,6 +3,7 @@ import 'package:fitness_app/components/plans/plan.dart';
 import 'package:flutter/material.dart';
 
 import '../components/auth/signup_page.dart';
+import '../components/diets/diet_list.dart';
 import '../components/exercises/exercice_list.dart';
 import '../components/home/home.dart';
 import '../components/home/notification.dart';
@@ -11,10 +12,10 @@ import '../components/onboarding/splash.dart';
 class AppPages {
   static List<PageEntity> routes() {
     return [
-      PageEntity(
-        route: AppRoutes.INITIAL,
-        page: const Splash(),
-      ),
+      // PageEntity(
+      //   route: AppRoutes.INITIAL,
+      //   page: const Splash(),
+      // ),
       // PageEntity(
       //   route: AppRoutes.WELCOME,
       //   page: const Welcome(),
@@ -71,13 +72,13 @@ class AppPages {
       //   //   create: (_) => AppBlocs(),
       //   // ),
       // ),
-      // PageEntity(
-      //   route: AppRoutes.NUTRITION,
-      //   page: const Diets(),
-      //   // bloc: BlocProvider(
-      //   //   create: (_) => AppBlocs(),
-      //   // ),
-      // ),
+      PageEntity(
+        route: AppRoutes.NUTRITION,
+        page: const Diets(),
+        // bloc: BlocProvider(
+        //   create: (_) => AppBlocs(),
+        // ),
+      ),
       // PageEntity(
       //   route: AppRoutes.APROPOS,
       //   page: const About(),

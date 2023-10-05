@@ -7,6 +7,7 @@ import '../home/home.dart';
 class Plan extends StatelessWidget {
   String title;
   String image;
+  
   Plan({super.key, 
     required this.title,
     required this.image

@@ -13,13 +13,13 @@ class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: Stepper(
           type:StepperType.horizontal,
           steps: [
             Step(
-              title: Text("Etape 1"),
+              title: const Text("Etape 1"),
               content: GestureDetector(
                 onTap: (){
                   Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.LOGIN, (route) => false);

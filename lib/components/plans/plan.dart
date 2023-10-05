@@ -1,4 +1,4 @@
-import 'package:fitness_app/components/exercises/plan_card.dart';
+import 'package:fitness_app/components/plans/plan_card.dart';
 import 'package:flutter/material.dart';
 
 class Plans extends StatelessWidget {

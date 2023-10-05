@@ -41,7 +41,7 @@ class _SearchState extends State<Search> {
                     label:const Text(
                       "Rechercher exercices, astuces, gyms",
                       style: TextStyle(
-                      color: AppColors.secondaryColor,
+                      color: AppColors.primaryTextColor,
                       overflow: TextOverflow.clip
                     ),
                       ),

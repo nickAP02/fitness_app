@@ -13,74 +13,98 @@ class Exercices extends StatefulWidget {
 }
 
 class _ExercicesState extends State<Exercices> {
+  List<Exercice> exercices = [
+    Exercice(
+      description: "Sprint rapide", 
+      time: 5, 
+      category: "Maintien du corps", 
+      image: AppImages.exerciceSample1
+    ),
+    Exercice(
+      description: "Sprint rapide", 
+      time: 10, 
+      category: "Maintien du corps", 
+      image: AppImages.exerciceSample1
+    ),
+    Exercice(
+      description: "Pompes", 
+      time: 3, 
+      category: "Maintien du corps", 
+      image: AppImages.exerciceSample1
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar("Liste des exercies", context),
-      body: GridView.count(
-        crossAxisCount: 2,
-        children: [
-          GestureDetector(
+      body: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        itemCount: exercices.length,
+        itemBuilder: (context, index) {
+         return GestureDetector(
             onTap: (){
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context)=> ExerciseDetail(
-                    description: "Sprint rapide",
-                    time: 5,
-                    category: "Maintien du corps",
-                    image: AppImages.exerciceSample1,
+                    description: exercices[index].description,
+                    time: exercices[index].time,
+                    category: exercices[index].category,
+                    image: exercices[index].image,
                   )
                 ),
               );
             },
             child: Exercice(
-              description: "Sprint rapide", 
-              time: 5, 
-              category: "Maintien du corps", 
-              image: AppImages.exerciceSample1
+              description: exercices[index].description, 
+              time: exercices[index].time, 
+              category: exercices[index].category, 
+              image: exercices[index].image
             ),
-          ),
-          GestureDetector(
-            onTap: (){
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context)=> ExerciseDetail(
-                    description: "Sprint rapide",
-                    time: 10,
-                    category: "Maintien du corps",
-                    image:  AppImages.exerciceSample1,
-                  )
-                ),
-              );
-            },
-            child: Exercice(
-              description: "Sprint rapide", 
-              time: 10, 
-              category: "Maintien du corps", 
-              image: AppImages.exerciceSample1
-            ),
-          ),
-          GestureDetector(
-            onTap: (){
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context)=> ExerciseDetail(
-                    description: "Pompes",
-                    time: 3,
-                    category: "Maintien du corps",
-                    image:  AppImages.exerciceSample1,
-                  )
-                ),
-              );
-            },
-            child: Exercice(
-              description: "Pompes", 
-              time: 3, 
-              category: "Maintien du corps", 
-              image: AppImages.exerciceSample1
-            ),
-          ),
-        ],
+          );
+        },
+        // crossAxisCount: 2,
+        // children: [
+        //   GestureDetector(
+        //     onTap: (){
+        //       Navigator.of(context).push(
+        //         MaterialPageRoute(
+        //           builder: (context)=> ExerciseDetail(
+        //             description: "Sprint rapide",
+        //             time: 10,
+        //             category: "Maintien du corps",
+        //             image:  AppImages.exerciceSample1,
+        //           )
+        //         ),
+        //       );
+        //     },
+        //     child: Exercice(
+        //       description: "Sprint rapide", 
+        //       time: 10, 
+        //       category: "Maintien du corps", 
+        //       image: AppImages.exerciceSample1
+        //     ),
+        //   ),
+        //   GestureDetector(
+        //     onTap: (){
+        //       Navigator.of(context).push(
+        //         MaterialPageRoute(
+        //           builder: (context)=> ExerciseDetail(
+        //             description: "Pompes",
+        //             time: 3,
+        //             category: "Maintien du corps",
+        //             image:  AppImages.exerciceSample1,
+        //           )
+        //         ),
+        //       );
+        //     },
+        //     child: Exercice(
+        //       description: "Pompes", 
+        //       time: 3, 
+        //       category: "Maintien du corps", 
+        //       image: AppImages.exerciceSample1
+        //     ),
+        //   ),
+        // ],
       ),
     );
   }
