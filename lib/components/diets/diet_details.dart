@@ -42,7 +42,7 @@ class _DietDetailsState extends State<DietDetails> {
                     height: 10,
                   ),
                   Text(
-                    widget.category,
+                    widget.category.toString(),
                   ),
                   Header(
                     text: "Calories",
@@ -55,7 +55,7 @@ class _DietDetailsState extends State<DietDetails> {
                       Text(
                         widget.calory.toString(),
                       ),
-                      Text(
+                      const Text(
                         "kCal",
                       ),
                     ],

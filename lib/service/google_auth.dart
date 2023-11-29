@@ -6,7 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../utils/colors.dart';
-import 'local_storage.dart';
+
 
 class GoogleAuth {
 
@@ -100,10 +100,10 @@ class GoogleAuth {
       
       return currentUser;
     }
-    User localSignIn(){
-      var user;
-      LocalStorage storage = LocalStorage();
-      storage.getUser().then((value) => user = value);
-      return user;
-    }
+    // User localSignIn(){
+    //   var user;
+    //   LocalStorage storage = LocalStorage();
+    //   storage.getUser().then((value) => user = value);
+    //   return user;
+    // }
 }

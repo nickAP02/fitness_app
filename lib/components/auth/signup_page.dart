@@ -5,7 +5,6 @@ import 'package:fitness_app/components/auth/login_page.dart';
 // import 'package:fitness_app/components/home/home.dart';
 // import 'package:fitness_app/components/home/profile.dart';
 import 'package:fitness_app/service/local_storage.dart';
-import 'package:fitness_app/models/user.dart';
 import 'package:fitness_app/utils/images.dart';
 import 'package:flutter/material.dart';
 
@@ -20,9 +19,12 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   LocalStorage userStorage = LocalStorage();
-  UserModel user = UserModel();
+  // String username = "";
+  // String avatar = "";
+  // String email = "";
+  // String telephone = "";
   GoogleAuth googleAuth = GoogleAuth();
-  
+  var user;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -140,10 +142,10 @@ class _SignUpState extends State<SignUp> {
                              googleAuth.signInWithGoogle().then(
                                   (value) => {
                                     if(value!=null){
-                                      user.avatar = value.photoUrl.toString(),
-                                      user.email = value.email.toString(),
-                                      user.username = value.displayName.toString(),
-                                      userStorage.saveUser(user),
+                                      // avatar = value.photoUrl.toString(),
+                                      // email = value.email.toString(),
+                                      // username = value.displayName.toString(),
+                                      userStorage.saveUser(value),
                                       Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.HOME, (route) => false)
                                     },
                                     log("signin here $value"),

@@ -13,8 +13,7 @@ void main() async {
   await Firebase.initializeApp(
    options: DefaultFirebaseOptions.currentPlatform,
   );
-  late LocalStorage storage;
-  storage = await LocalStorage().init();
+  LocalStorage storage = await LocalStorage().init();
 
   runApp(const MyApp());
 }

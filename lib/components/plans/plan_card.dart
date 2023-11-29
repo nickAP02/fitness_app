@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 import '../../utils/colors.dart';
-import '../home/home.dart';
 
 // ignore: must_be_immutable
 class Plan extends StatelessWidget {
   String title;
   String image;
-  
+  Function() callback;
   Plan({super.key, 
     required this.title,
-    required this.image
+    required this.image,
+    required this.callback
   });
 
   @override
@@ -36,13 +36,7 @@ class Plan extends StatelessWidget {
         ),
       ),
       child: GestureDetector(
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context)=> const Home()
-            ),
-          );
-        },
+        onTap: callback,
         child: Center(
           child: Text(
             title

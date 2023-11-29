@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:fitness_app/components/home/home.dart';
 import 'package:fitness_app/utils/colors.dart';
 import 'package:fitness_app/utils/images.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +55,15 @@ class _AppDrawerState extends State<AppDrawer> {
           Column(
             children: [
               ListTile(
-                onTap: (){},
+                onTap: (){
+                  Navigator.pushAndRemoveUntil(
+                    context, 
+                    MaterialPageRoute(
+                      builder: (context) => const Home(),
+                    ),
+                    (route) => false
+                  );
+                },
                 leading: const Icon(Icons.home,color: AppColors.secondaryColor,),
                 title: const Text("Accueil"),
               ),

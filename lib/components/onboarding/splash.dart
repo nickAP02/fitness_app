@@ -13,56 +13,62 @@ class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        child: Stepper(
-          type:StepperType.horizontal,
-          steps: [
-            Step(
-              title: const Text("Etape 1"),
-              content: GestureDetector(
-                onTap: (){
-                  Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.LOGIN, (route) => false);
-                },
-                child: const Center(
-                  child: Text("hello wordl"),
+      body: Center(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: Stepper(
+            type:StepperType.horizontal,
+            steps: [
+              Step(
+                title: const Text("Etape 1"),
+                state: StepState.indexed,
+                content: GestureDetector(
+                  onTap: (){
+                    Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.LOGIN, (route) => false);
+                  },
+                  child: const Center(
+                    child: Text("hello wordl"),
+                  ),
                 ),
               ),
-            ),
-            Step(
-              title: Text("Etape 2"),
-              content: GestureDetector(
-                onTap: (){
-                  Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.LOGIN, (route) => false);
-                },
-                child: const Center(
-                  child: Text("hello wordl"),
+              Step(
+                title: const Text("Etape 2"),
+                state: StepState.indexed,
+                content: GestureDetector(
+                  onTap: (){
+                    Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.LOGIN, (route) => false);
+                  },
+                  child: const Center(
+                    child: Text("hello wordl"),
+                  ),
                 ),
               ),
-            ),
-            Step(
-              title: Text("Etape 3"),
-              content: GestureDetector(
-                onTap: (){
-                  Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.LOGIN, (route) => false);
-                },
-                child: const Center(
-                  child: Text("hello wordl"),
+              Step(
+                title: const Text("Etape 3"),
+                state: StepState.indexed,
+                content: GestureDetector(
+                  onTap: (){
+                    Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.LOGIN, (route) => false);
+                  },
+                  child: const Center(
+                    child: Text("hello wordl"),
+                  ),
                 ),
               ),
-            ),
-            Step(
-              title: Text("Etape 4"),
-              content: GestureDetector(
-                onTap: (){
-                  Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.LOGIN, (route) => false);
-                },
-                child: const Center(
-                  child: Text("hello wordl"),
+              Step(
+                title: const Text("Etape 4"),
+                state: StepState.indexed,
+                content: GestureDetector(
+                  onTap: (){
+                    Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.LOGIN, (route) => false);
+                  },
+                  child: const Center(
+                    child: Text("hello wordl"),
+                  ),
                 ),
               ),
-            ),
-          ]
+            ]
+          ),
         ),
       ),
     );

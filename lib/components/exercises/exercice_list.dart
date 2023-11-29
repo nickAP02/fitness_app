@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../utils/images.dart';
 import 'exercise_card.dart';
-import 'exercise_detail.dart';
+import 'exercise_details.dart';
 
 class Exercices extends StatefulWidget {
   const Exercices({super.key});
@@ -38,7 +38,7 @@ class _ExercicesState extends State<Exercices> {
     return Scaffold(
       appBar: buildAppBar("Liste des exercies", context),
       body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemCount: exercices.length,
         itemBuilder: (context, index) {
          return GestureDetector(

@@ -1,8 +1,7 @@
 import 'dart:developer';
 import 'package:fitness_app/components/home/home.dart';
-import 'package:fitness_app/components/home/profile.dart';
-import 'package:fitness_app/components/home/search_page.dart';
 import 'package:fitness_app/service/local_storage.dart';
+import 'package:fitness_app/utils/routes.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/app_theme.dart';
@@ -45,11 +44,7 @@ class BottomNavBar extends StatelessWidget {
           icon: IconButton(
             onPressed: ()=>{
               log("boutton recherche"),
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context)=> const Search()
-                ),
-              )
+              Navigator.of(context).pushNamed(AppRoutes.SEARCH)
             }, 
             icon: const Icon(Icons.search_rounded,color: AppColors.secondaryColor,)
           )
@@ -59,10 +54,12 @@ class BottomNavBar extends StatelessWidget {
           icon: IconButton(
             onPressed: ()=>{
               log("boutton profile"),
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context)=> const Profile()
-                ),
+              Navigator.of(context).pushNamed(
+                AppRoutes.PROFILE
+                // MaterialPageRoute(
+                //   builder: (context)=> const Profile()
+                // ),
+                // (route) => false,
               )
             }, 
             icon: const Icon(Icons.account_circle,color: AppColors.secondaryColor,)
@@ -73,8 +70,8 @@ class BottomNavBar extends StatelessWidget {
           icon: IconButton(
             onPressed: ()=>{
               log("boutton settings"),
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context)=>const Settings())
+              Navigator.of(context).pushNamed(
+                AppRoutes.PARAMS
               )
             }, 
             icon: const Icon(Icons.settings,color: AppColors.secondaryColor,)

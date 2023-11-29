@@ -1,4 +1,3 @@
-import 'package:fitness_app/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalStorage {
@@ -8,28 +7,29 @@ class LocalStorage {
     return this;
   }
 
-  Future<UserModel> getUser() async {
-    UserModel user = UserModel();
+  saveUser(userData) async {
     prefs  = await SharedPreferences.getInstance();
-    user.id= prefs.getString('user_id');
-    user.avatar= prefs.getString('avatar');
-    user.username= prefs.getString('username');
-    user.email= prefs.getString('email');
-    user.sex= prefs.getString('sex');
-    user.country= prefs.getString('country');
-    user.city= prefs.getString('city');
-    return user;
+    prefs.setString('user_id', userData.id.toString());
+    prefs.setString('username', userData.username.toString());
+    prefs.setString('avatar', userData.avatar.toString());//user profile image
+    prefs.setString('email', userData.email.toString());
+    prefs.setString('sex', userData.sex.toString());
+    prefs.setString('telephone', userData.telephone.toString());
+    prefs.setString('lang', userData.lang.toString());//user lang preference
+    prefs.setString('height', userData.telephone.toString());//user height
+    prefs.setString('weight', userData.telephone.toString());//user weight
+    prefs.setString('goal', userData.telephone.toString());//user plan category id 
+    prefs.setString('is_user', userData.isUser.toString());//user status wether partner or not
   }
 
-  saveUser(UserModel userModel) async {
-    prefs  = await SharedPreferences.getInstance();
-    prefs.setString('user_id', userModel.id.toString());
-    prefs.setString('username', userModel.username.toString());
-    prefs.setString('avatar', userModel.avatar.toString());
-    prefs.setString('email', userModel.email.toString());
-    prefs.setString('sex', userModel.sex.toString());
-    prefs.setString('country', userModel.country.toString());
-    prefs.setString('city', userModel.city.toString());
+  updateUser(userData) async{
+    prefs.setString('user_id', userData["id"].toString());
+    prefs.setString('avatar', userData["avatar"].toString());
+    prefs.setString('telephone', userData["telephone"].toString());
+    prefs.setString('lang', userData["lang"].toString());
+    prefs.setString('height', userData["height"].toString());
+    prefs.setString('weight', userData["weight"].toString());
+    
   }
 
 }

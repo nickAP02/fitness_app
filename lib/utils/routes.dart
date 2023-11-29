@@ -1,5 +1,8 @@
 import 'package:fitness_app/components/auth/login_page.dart';
-import 'package:fitness_app/components/plans/plan.dart';
+import 'package:fitness_app/components/home/profile.dart';
+import 'package:fitness_app/components/home/search_page.dart';
+import 'package:fitness_app/components/plans/plan_list.dart';
+import 'package:fitness_app/components/settings.dart';
 import 'package:flutter/material.dart';
 
 import '../components/auth/signup_page.dart';
@@ -7,7 +10,7 @@ import '../components/diets/diet_list.dart';
 import '../components/exercises/exercice_list.dart';
 import '../components/home/home.dart';
 import '../components/home/notification.dart';
-import '../components/onboarding/splash.dart';
+// import '../components/onboarding/splash.dart';
 
 class AppPages {
   static List<PageEntity> routes() {
@@ -17,8 +20,22 @@ class AppPages {
       //   page: const Splash(),
       // ),
       // PageEntity(
-      //   route: AppRoutes.WELCOME,
-      //   page: const Welcome(),
+      //   route: AppRoutes.LANG,
+      //   page: const LangPreference(),
+      //   // bloc: BlocProvider(
+      //   //   create: (_) => WelcomeBloc(),
+      //   // ),
+      // ),
+      // PageEntity(
+      //   route: AppRoutes.PLAN_PREF,
+      //   page: const PlanPreferences(),
+      //   // bloc: BlocProvider(
+      //   //   create: (_) => WelcomeBloc(),
+      //   // ),
+      // ),
+      // PageEntity(
+      //   route: AppRoutes.USER_PREF,
+      //   page: const UserPreference(),
       //   // bloc: BlocProvider(
       //   //   create: (_) => WelcomeBloc(),
       //   // ),
@@ -93,20 +110,27 @@ class AppPages {
         //   create: (_) => AppBlocs(),
         // ),
       ),
-      // PageEntity(
-      //   route: AppRoutes.ANNONCES,
-      //   page: const AnnonceConcours(),
-      //   // bloc: BlocProvider(
-      //   //   create: (_) => AppBlocs(),
-      //   // ),
-      // ),
-      // PageEntity(
-      //   route: AppRoutes.ORIENTATIONS,
-      //   page: const OrientationsPage(),
-      //   // bloc: BlocProvider(
-      //   //   create: (_) => AppBlocs(),
-      //   // ),
-      // )
+      PageEntity(
+        route: AppRoutes.PARAMS,
+        page: const Settings(),
+        // bloc: BlocProvider(
+        //   create: (_) => AppBlocs(),
+        // ),
+      ),
+      PageEntity(
+        route: AppRoutes.SEARCH,
+        page: const Search(),
+        // bloc: BlocProvider(
+        //   create: (_) => AppBlocs(),
+        // ),
+      ),
+      PageEntity(
+        route: AppRoutes.PROFILE,
+        page: const Profile(),
+        // bloc: BlocProvider(
+        //   create: (_) => AppBlocs(),
+        // ),
+      )
     ];
   }
 
@@ -160,19 +184,28 @@ class PageEntity {
 class AppRoutes {
   //splash page or on boarding
   // ignore: constant_identifier_names
-  static const INITIAL = '/';
-  //welcome page
+  // static const INITIAL = '/';
+  // //welcome page
+  // // ignore: constant_identifier_names
+  // static const WELCOME = '/welcome';
+  //lang preferences page
   // ignore: constant_identifier_names
-  static const WELCOME = '/welcome';
-  //home page
+  // static const LANG = '/lang';
+  //user preferences page
   // ignore: constant_identifier_names
-  static const HOME = '/home';
+  // static const PLAN_PREF = '/plan_pref';
+  //user preferences page
+  // ignore: constant_identifier_names
+  // static const USER_PREF = '/user_pref';
   //sign in page
   // ignore: constant_identifier_names
   static const SIGN_UP = '/sign_in';
   //login page
   // ignore: constant_identifier_names
   static const LOGIN = '/login';
+  //home page
+  // ignore: constant_identifier_names
+  static const HOME = '/home';
   //notification page
   // ignore: constant_identifier_names
   static const NOTIFICATION = '/notification';
@@ -194,12 +227,12 @@ class AppRoutes {
   //à propos
   // ignore: constant_identifier_names
   static const APROPOS = '/about';
-  // //FAQ
-  // static const INFOS = '/infos';
-  // //orientations
-  // static const ORIENTATIONS = '/orientations';
-  // //guest
-  // static const GUEST = '/guest';
+  //recherche
+  static const SEARCH = '/search';
+  // //params
+  static const PARAMS = '/params';
+  //user profile
+  static const PROFILE = '/profile';
   // //agenda
   // static const AGENDA = '/agenda';
   // //annonces concours

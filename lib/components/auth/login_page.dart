@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitness_app/components/auth/signup_page.dart';
-import 'package:fitness_app/models/user.dart';
 import 'package:fitness_app/service/google_auth.dart';
 import 'package:fitness_app/service/local_storage.dart';
 import 'package:fitness_app/utils/images.dart';
@@ -12,14 +11,14 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../utils/routes.dart';
+
 import '../home/home.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}):super(key: key);
 
   @override
-  State<Login> createState() => _LoginState();
+  _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
@@ -31,17 +30,17 @@ class _LoginState extends State<Login> {
   GoogleAuth googleAuth = GoogleAuth();
   Future<DocumentSnapshot<Map<String, dynamic>>> documents = FirebaseFirestore.instance.collection("users").doc().get();
   
-  List getUserData(){
-    List elements = [];
-    documents.then(
-      (value) =>{
-        value.data()!.forEach((key, value) {
-          elements.add(value);
-        })
-      }
-    );
-    return elements;
-    // value as UserModel,
+  // List getUserData(){
+  //   List elements = [];
+  //   documents.then(
+  //     (value) =>{
+  //       value.data()!.forEach((key, valeur) {
+  //         elements.add(valeur);
+  //       })
+  //     }
+  //   );
+  //   return elements;
+  
     // if(value.email==""){
     //   storage.saveUser(value);
     // }
@@ -52,14 +51,14 @@ class _LoginState extends State<Login> {
     //     ),
     //   );
     // }
-  }
+  // }
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getUserData().forEach((element) {
-      print("element $element");
-    });
+    // getUserData().forEach((element) {
+    //   print("element $element");
+    // });
   }
   @override
   Widget build(BuildContext context) {
@@ -171,7 +170,7 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(top:20.0,right: 80,left: 10),
+                            padding: EdgeInsets.only(top:20.0,right: 70,left: 28),
                             child: Text(
                               "Surtout atteignez vos objectifs🔥.",
                                 style: TextStyle(
@@ -196,11 +195,12 @@ class _LoginState extends State<Login> {
                             label: const Text("Connexion"),
                             onPressed: () async => {
                               log("google login"),
-                              // googleAuth.loginWithGoogle(context: context).then(
-                              //   (value) => {
-                              //     storage.saveUser(value as UserModel)
-                              //     }
-                              //   ),
+                              googleAuth.loginWithGoogle(context: context).then(
+                                (value) => {
+                                  log("login cred $value"),
+                                  storage.saveUser(value)
+                                  }
+                              ),
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (context)=> const Home()

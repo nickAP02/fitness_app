@@ -1,17 +1,40 @@
 import 'dart:developer';
-import 'package:fitness_app/components/plans/plan.dart';
+import 'package:fitness_app/components/onboarding/plan_preference.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/colors.dart';
 
-class Preference extends StatefulWidget {
-  const Preference({super.key});
+class LangPreference extends StatefulWidget {
+  const LangPreference({super.key});
 
   @override
-  State<Preference> createState() => _PreferenceState();
+  State<LangPreference> createState() => _LangPreferenceState();
 }
 
-class _PreferenceState extends State<Preference> {
+class _LangPreferenceState extends State<LangPreference> {
+  // LocalStorage localStorage = LocalStorage();
+  String username = "";
+  String avatar = "";
+  String email = "";
+  String sexe = "";
+  String telephone = "";
+  int lang=0;
+  var userData;
+  void getUserData() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    username = prefs.getString('username')??"";
+    avatar = prefs.getString('avatar')??"";
+    email = prefs.getString('email')??"";
+    sexe = prefs.getString('sex')??"";
+    telephone = prefs.getString('telephone')??"";
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUserData();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,25 +80,34 @@ class _PreferenceState extends State<Preference> {
                                 color: AppColors.primaryColor
                               ),
                             ),
-                            child: const Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "EN",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.white
-                                    )
-                                  ),
-                                  Text(
-                                    "English",
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.white
+                            child: Center(
+                              child: GestureDetector(
+                                onTap: () async{
+                                  log("lang en");
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  lang = 0;
+                                  prefs.setInt("lang", lang);
+                                },
+                                behavior: HitTestBehavior.deferToChild,
+                                child: const Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "EN",
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white
+                                      )
                                     ),
-                                  ),
-                                ],
+                                    Text(
+                                      "English",
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.white
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -89,26 +121,34 @@ class _PreferenceState extends State<Preference> {
                               color: AppColors.primaryColor,
                               borderRadius: BorderRadius.circular(10)
                             ),
-                            child: const Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "FR",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.white
+                            child: Center(
+                              child: GestureDetector(
+                                onTap: ()async{
+                                  log("lang fr");
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  lang = 1;
+                                  prefs.setInt("lang", lang);
+                                },
+                                child: const Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "FR",
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white
+                                      ),
                                     ),
-                                  ),
-                                 Text(
-                                    "French",
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.white
+                                   Text(
+                                      "French",
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.white
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -132,7 +172,7 @@ class _PreferenceState extends State<Preference> {
                         log("language pref"),
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context)=> const Plans()
+                            builder: (context)=> const PlanPreferences()
                           ),
                         ),
                       }, 

@@ -1,34 +1,45 @@
 import 'dart:convert';
 
-class Exercise {
-  late String? description;
-  late Duration? time;
-  late String? category;
-  late String? image;
+import 'category.dart';
 
-  Exercise({
+class ExerciseEntity {
+  int? exercise_id;
+  String? title;
+  String? description;
+  int? time;
+  // int? plan_id;
+  CategoryEntity? plan_id;
+  String? illustration;
+
+  ExerciseEntity({
+    this.exercise_id,
+    this.title,
     this.description,
     this.time,
-    this.category,
-    this.image
+    this.plan_id,
+    this.illustration
   });
 
-  List<Exercise> exerciseFromJson(String str)=> List<Exercise>.from(json.decode(str).map((x)=>Exercise.fromJson(x)));
+  List<ExerciseEntity> exerciseFromJson(String str)=> List<ExerciseEntity>.from(json.decode(str).map((x)=>ExerciseEntity.fromJson(x)));
   
-  String exerciseToJson(List<Exercise> data) => json.encode(List<dynamic>.from(data.map((e) => e.toJson())));
+  String exerciseToJson(List<ExerciseEntity> data) => json.encode(List<dynamic>.from(data.map((e) => e.toJson())));
 
-  factory Exercise.fromJson(Map<String,dynamic>json){
-    return Exercise(
-      description: json["desc"]??"",
-      time: json["time"]??"",
-      category: json["category"]??"",
-      image: json["image"]??""
+  factory ExerciseEntity.fromJson(Map<String,dynamic>json){
+    return ExerciseEntity(
+      exercise_id: json["exercise_id"],
+      title: json["title"],
+      description: json["description"],
+      time: json["time"],
+      plan_id: CategoryEntity.fromJson(json["plan_id"]),
+      illustration: json["illustration"]
     );
   }
   Map<String,dynamic> toJson()=>{
+    'exercise_id':exercise_id,
+    'title':title,
     'description':description,
     'time':time,
-    'category':category,
-    'image':image
+    'plan_id':plan_id,
+    'illustration':illustration
   };
 }

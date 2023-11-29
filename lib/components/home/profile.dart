@@ -7,7 +7,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../models/user.dart';
+
 import '../../utils/colors.dart';
 import '../reusable/bottom_navbar.dart';
 import '../reusable/custom_appbar.dart';
@@ -26,24 +26,22 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   bool loading = false;
   final GoogleAuth googleAuth = GoogleAuth();
-  UserModel user = UserModel();
+  String username = "";
+  String avatar = "";
+  String email = "";
+  String telephone = "";
   Uint8List _bytes = Uint8List(0);
   CroppedFile? _croppedFileToUpload;
-  String city="";
-  String country="";
   void getUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    user.username = prefs.getString("username") ??"";
-    user.avatar = prefs.getString("avatar") ??"";
-    user.email = prefs.getString("email") ??"";
-    user.country = prefs.getString("country") ??"";
-    user.city = prefs.getString("city") ??"";
-    city = user.city!;
-    country = user.country!;
+    username = prefs.getString("username") ??"";
+    avatar = prefs.getString("avatar") ??"";
+    email = prefs.getString("email") ??"";
+    telephone = prefs.getString("telephone") ??"";
     setState(() {
       loading = true;
     });
-    print("user prefs avatar ${user.avatar.toString()} city ${user.city}${user.country} email ${user.email} username ${user.username}");
+    print("user prefs avatar $avatar telephone $telephone email $email username $username");
     
   }
   
@@ -85,7 +83,7 @@ class _ProfileState extends State<Profile> {
       _bytes = await cropped!.readAsBytes();
       _croppedFileToUpload = cropped;
       File _file = File(_croppedFileToUpload!.path);
-      user.avatar = _file.path.toString();
+      avatar = _file.path.toString();
     }
   }
   @override
@@ -104,7 +102,7 @@ class _ProfileState extends State<Profile> {
                 children: [
                   CircleAvatar(
                     radius: 50,
-                    backgroundImage: NetworkImage(user.avatar!),
+                    backgroundImage: NetworkImage(avatar),
                   ),
                   Positioned(
                     bottom: 0,
@@ -139,7 +137,7 @@ class _ProfileState extends State<Profile> {
                             child: ListTile(
                               leading: const Icon(Icons.person,color: Colors.white),
                               title: Text(
-                                user.username!,
+                                username,
                                 style: const TextStyle(
                                   color: AppColors.primaryColor
                                 )
@@ -151,7 +149,7 @@ class _ProfileState extends State<Profile> {
                             child: ListTile(
                               leading: const Icon(Icons.email,color: Colors.white,),
                               title: Text(
-                                user.email!,
+                                email,
                                 style:  const TextStyle(
                                   color: AppColors.primaryColor
                                 )
@@ -161,10 +159,9 @@ class _ProfileState extends State<Profile> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: ListTile(
-                              leading: const Icon(Icons.location_on,color: Colors.white),
+                              leading: const Icon(Icons.phone,color: Colors.white),
                               title: Text(
-                                // user.city!
-                                "$city, $country",
+                                telephone,
                                 style: const TextStyle(
                                   color: AppColors.primaryColor
                                 )
@@ -176,7 +173,7 @@ class _ProfileState extends State<Profile> {
                             child: ListTile(
                               leading: const Icon(Icons.info,color: Colors.white),
                               title: Text(
-                                user.username!,
+                                username,
                                 style: const TextStyle(
                                   color: AppColors.primaryColor
                                 )

@@ -2,20 +2,22 @@ import 'dart:developer';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fitness_app/components/diets/diet_card.dart';
 import 'package:fitness_app/components/exercises/exercise_card.dart';
-import 'package:fitness_app/components/exercises/exercise_detail.dart';
 import 'package:fitness_app/components/plans/plan_card.dart';
-import 'package:fitness_app/components/gyms/gym_center.dart';
+import 'package:fitness_app/components/gyms/gym_center_card.dart';
 import 'package:fitness_app/components/reusable/bottom_navbar.dart';
-import 'package:fitness_app/service/local_storage.dart';
 import 'package:fitness_app/utils/app_theme.dart';
 import 'package:fitness_app/utils/images.dart';
 import 'package:fitness_app/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../models/exercise.dart';
+import '../../models/partner.dart';
+import '../../models/diet.dart';
+import '../../models/category.dart';
 import '../../utils/colors.dart';
-import '../diets/diet_details.dart';
 import '../reusable/app_drawer.dart';
+import '../reusable/search_bar.dart';
 
 
 class Home extends StatefulWidget {
@@ -29,35 +31,155 @@ class _HomeState extends State<Home> {
   final CarouselController _controller = CarouselController();
   bool loading = false;
   List<GymCenter> gyms = [];
+  List<Exercice> exercices = [];
+  List<Diet> diets = [];
+  List<PartnerEntity> partnerEntities = [];
+  List<ExerciseEntity> exerciseEntities = [];
+  List<CategoryEntity> planEntities = [];
+  List<DietEntity> dietEntities = [];
   int _current = 0;
   int notification_count=0;
-  void getUserInfo() async {
+  String username="";
+  
+  void getUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    notification_count = prefs.getInt("notification_count")!;
+    notification_count = prefs.getInt("notification_count")??0;
+    username = prefs.getString("username")!;
   }
   @override
-  void initState() {
+  void initState() async{
     super.initState();
     loading = true;
-    gyms.addAll(
+    partnerEntities.addAll(
       [
-      GymCenter(
-        title: 'Oxy gym',
-        description: 'Oxy gym est un centre de remise en forme lorum ipsum dolor aet idont know',
-        localisation: 'Bè-klikamé 10m après le début des rails',
-        longitude: '27"57"43ABCDE',
-        latitude: '45UVWXZ34',
-        image: AppImages.planSample1,
-      ),
-      GymCenter(
-        title: 'Fitness lab',
-        description: 'Espace de gymnatique-activité principales zumba, musculation, remise en forme etc ...',
-        localisation: 'Adidogomé',
-        longitude: 'azert1234àç_è',
-        latitude: 'ydiuzu24567hkg',
-        image: AppImages.planSample2,
-      ),
-    ]);
+        PartnerEntity(
+          partner_id: 1,
+          name:'Oxy gym',
+          description: 'Oxy gym est un centre de remise en forme lorum ipsum dolor aet idont know',
+          avatar: AppImages.planSample1,
+          is_merchant: false,
+          subscription_id: 0,
+          localisation: 'Klikamé'
+        ),
+        PartnerEntity(
+          partner_id: 2,
+          name:'Fitness lab',
+          description: 'Espace de gymnatique-activité principales zumba, musculation, remise en forme etc ...',
+          avatar: AppImages.planSample2,
+          is_merchant: true,
+          subscription_id: 0,
+          localisation: 'Adidogomé'
+        ),
+      ]
+    );
+    for(var cpt=0;cpt<partnerEntities.length;cpt++){
+      if(partnerEntities[cpt].is_merchant==false){
+        gyms.add(
+          GymCenter(
+            title: partnerEntities[cpt].name!,
+            description: partnerEntities[cpt].description!, 
+            localisation: partnerEntities[cpt].localisation!, 
+            longitude: "0xFbE4", 
+            latitude: "0xB5H6", 
+            image: partnerEntities[cpt].avatar!
+          )
+        );
+      }
+      else{
+        gyms.add(
+          GymCenter(
+            title: partnerEntities[cpt].name!,
+            description: partnerEntities[cpt].description!, 
+            localisation: partnerEntities[cpt].localisation!, 
+            longitude: "0xFbE4", 
+            latitude: "0xB5H6", 
+            image: partnerEntities[cpt].avatar!
+          )
+        );
+
+      }
+    }
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt("partners",partnerEntities.length);
+    exerciseEntities.addAll(
+      [
+        ExerciseEntity(
+          exercise_id:1,
+          title:"Sprint rapide",
+          description:"Maintien du corps",
+          time: 5,
+          illustration: AppImages.exerciceSample1,
+          plan_id: CategoryEntity(
+            category_id: 1,
+            description: "Maintien du corps",
+            illustration: AppImages.exerciceSample1
+          )
+        ),
+        ExerciseEntity(
+          exercise_id:2,
+          title:"Pompes",
+          description:"Maintien du corps",
+          time: 10,
+          illustration: AppImages.exerciceSample2,
+          plan_id: CategoryEntity(
+            category_id: 1,
+            description: "Maintien du corps",
+            illustration: AppImages.exerciceSample1
+          )
+        ),
+      ]
+    );
+    for (var i = 0; i < exerciseEntities.length; i++) {
+      exercices.add(
+        Exercice(
+          description: exerciseEntities[i].description!,
+          time: exerciseEntities[i].time, 
+          category: exerciseEntities[i].plan_id!.description!, 
+          image: exerciseEntities[i].illustration!
+        )
+      );
+    }
+    prefs.setInt("exercises", exerciseEntities.length);
+    dietEntities.addAll(
+      [
+       DietEntity(
+          diet_id: 1,
+          title: "Salade viet",
+          description: "Salade viet composée de gingembre, d'oignons, de ciboule, de comcombre et de tomates fraiches", 
+          plan_id: CategoryEntity(
+            category_id: 1, 
+            description: "Maintien du corps", 
+            illustration: AppImages.dietSample1
+          ), 
+          calory: 120, 
+          illustration: AppImages.dietSample1
+        ),
+        DietEntity(
+          diet_id: 2,
+          title: "Salade viet",
+          description: "Salade viet composée de gingembre, d'oignons, de ciboule, de comcombre et de tomates fraiches", 
+          plan_id: CategoryEntity(
+            category_id: 2, 
+            description: "Perte du poids", 
+            illustration: AppImages.dietSample1
+          ), 
+          calory: 120, 
+          illustration: AppImages.dietSample1
+        ),
+      ]
+    );
+    for (var i = 0; i < dietEntities.length; i++) {
+      diets.add(
+        Diet(
+          description: dietEntities[i].description!,
+          calory: dietEntities[i].calory!,
+          category: dietEntities[i].plan_id!.description!,
+          image: dietEntities[i].illustration!,
+        )
+      );
+    }
+    prefs.setInt("diets",dietEntities.length);
+    getUserData();
   }
   @override
   Widget build(BuildContext context) {
@@ -101,7 +223,7 @@ class _HomeState extends State<Home> {
                   child: Center(
                     child: Text(
                     notification_count.toString(),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: AppColors.primaryTextColor
                     ),
                     ),
@@ -110,9 +232,15 @@ class _HomeState extends State<Home> {
               ),
             ]
           ):
-          const Icon(
-            Icons.notifications,
-            color: AppColors.secondaryColor,
+          IconButton(
+            icon:const Icon(
+              Icons.notifications,
+              color: AppColors.secondaryColor
+            ),
+            onPressed: (){
+              log("zero notif");
+              Navigator.of(context).pushNamed(AppRoutes.NOTIFICATION);
+            },
           )
         ],
       ) ,
@@ -124,29 +252,23 @@ class _HomeState extends State<Home> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // const ListTile(
-            //   leading: Icon(
-            //       Icons.bolt,
-            //       color: Colors.white,
-            //   ),
-            //   title: Text(
-            //     "Objectif actuel",
-            //     style: TextStyle(
-            //       color: AppColors.primaryColor
-            //     ),
-            //   ),
-            // ),
-            // const Text(
-            //     'Maintien du corps',
-            //     style: TextStyle(
-            //       color: AppColors.primaryColor
-            //     ),
-            //   ),
-            const Padding(
-              padding: EdgeInsets.all(20.0),
+            makeSearchOption(context,
+            (){
+              setState(() {
+                
+              });
+            },
+            (){
+              setState(() {
+                
+              });
+            }
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
               child: Text(
-                  "Gyms ou coachs personnels proches de vous",
-                  style: TextStyle(
+                  "Bienvenue $username parmi la communauté !",
+                  style: const TextStyle(
                     color: AppColors.primaryColor
                   ),
                 ),
@@ -209,7 +331,7 @@ class _HomeState extends State<Home> {
                 GestureDetector(
                   onTap: () {
                     log("liste des exercices");
-                    Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.EXERCICES, (route) => false);
+                    Navigator.of(context).pushNamed(AppRoutes.EXERCICES);
                   },
                   child: const Padding(
                     padding: EdgeInsets.all(15.0),
@@ -230,48 +352,7 @@ class _HomeState extends State<Home> {
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 padding: const EdgeInsets.only(left: 10,right: 15,top: 10),
-                children: [
-                  GestureDetector(
-                    onTap: (){
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context)=> ExerciseDetail(
-                            description: "Sprint rapide",
-                            time: 5,
-                            category: "Maintien du corps",
-                            image: AppImages.exerciceSample1,
-                          )
-                        ),
-                      );
-                    },
-                    child: Exercice(
-                      description: "Sprint rapide", 
-                      time: 5, 
-                      category: "Maintien du corps", 
-                      image: AppImages.exerciceSample1
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: (){
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context)=> ExerciseDetail(
-                            description: "Sprint rapide",
-                            time: 10,
-                            category: "Maintien du corps",
-                            image:  AppImages.exerciceSample1,
-                          )
-                        ),
-                      );
-                    },
-                    child: Exercice(
-                      description: "Sprint rapide", 
-                      time: 10, 
-                      category: "Maintien du corps", 
-                      image: AppImages.exerciceSample1
-                    ),
-                  ),
-                ],
+                children: exercices.toList(),
               ),
             ),
           Row(
@@ -307,6 +388,9 @@ class _HomeState extends State<Home> {
             Plan(
               title: 'PERTE DE POIDS',
               image: AppImages.planSample2,
+              callback: (){
+                const SnackBar(content: Text("Vous avez choisi de perdre du poids"));
+              },
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -344,34 +428,7 @@ class _HomeState extends State<Home> {
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 padding: const EdgeInsets.only(left: 10,right: 15,top: 10),
-                children: [
-                  GestureDetector(
-                    onTap:(){
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context)=> DietDetails(
-                            description: "Salade viet composée de gingembre, d'oignons, de ciboule, de comcombre et de tomates fraiches",
-                            calory: 120,
-                            category: "Maintien du corps",
-                            image:  AppImages.dietSample1,
-                          )
-                        ),
-                      );
-                    },
-                    child: Diet(
-                      description: "Salade viet", 
-                      calory: 120, 
-                      category: "Maintien du corps", 
-                      image: AppImages.dietSample1
-                    ),
-                  ),
-                  Diet(
-                    description: "Salade viet", 
-                    calory: 120, 
-                    category: "Maintien du corps", 
-                    image: AppImages.dietSample1
-                  ),
-                ],
+                children: diets.toList(),
               ),
           ],
         ),
