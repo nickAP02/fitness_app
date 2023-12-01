@@ -1,30 +1,18 @@
 import 'package:fitness_app/components/plans/plan_card.dart';
+import 'package:fitness_app/utils/images.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/category.dart';
 
 class Plans extends StatelessWidget {
-  const Plans({super.key});
+  List<CategoryEntity> data;
+  Plans({
+      super.key,
+      required this.data
+    });
 
   @override
   Widget build(BuildContext context) {
-    var planEntities = [
-    CategoryEntity(
-      category_id: 1,
-      description:"Maintien du corps",
-      illustration: "plan-1.jpg"
-    ),
-    CategoryEntity(
-      category_id: 2,
-      description:"Perte de poids",
-      illustration: "plan-2.jpg"
-    ),
-    CategoryEntity(
-      category_id: 3,
-      description:"Musculation",
-      illustration: "plan-1.jpg"
-    ),
-  ];
     return Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(
@@ -44,12 +32,12 @@ class Plans extends StatelessWidget {
                 ),
               ),
               Column(
-                children: planEntities.map((e) => Plan(
-                  title: e.description!, 
-                  image: e.illustration!, 
-                  callback: (){
-                    
-                  })).toList(),
+                children: data.map((e) => Plan(
+                  plan: e, 
+                  exercices: [], 
+                  diets: [],
+                  )
+                ).toList(),
               )      
             ],
           ),

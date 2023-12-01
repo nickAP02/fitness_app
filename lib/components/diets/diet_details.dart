@@ -7,11 +7,13 @@ import '../reusable/header.dart';
 class DietDetails extends StatefulWidget {
   DietDetails({
     super.key,
+    required this.title,
     required this.description,
     required this.calory,
     required this.category,
     required this.image
   });
+  String title;
   String description;
   double calory;
   String category;
@@ -24,7 +26,7 @@ class _DietDetailsState extends State<DietDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:buildAppBar("Détails de la diet", context),
+      appBar:buildAppBar(widget.title, context),
       body:CustomScrollView(
           scrollBehavior: const MaterialScrollBehavior(),
           slivers: [

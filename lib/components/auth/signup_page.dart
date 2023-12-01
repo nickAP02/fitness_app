@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:fitness_app/components/auth/partner_signup.dart';
+import 'package:fitness_app/components/onboarding/lang_preference.dart';
 import 'package:fitness_app/service/google_auth.dart';
 import 'package:fitness_app/components/auth/login_page.dart';
 // import 'package:fitness_app/components/home/home.dart';
@@ -9,6 +11,7 @@ import 'package:fitness_app/utils/images.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/routes.dart';
+import '../reusable/custom_button.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -80,144 +83,44 @@ class _SignUpState extends State<SignUp> {
                           ),
                         ),
                       ),
-                      const Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
+                      Center(
+                        child:Column(
+                          children: [
+                          Text("S'inscrire en tant que"),
                           Padding(
-                            padding: EdgeInsets.only(top:58.0,left: 10),
-                            child: Text(
-                              "Définissez des objectifs qui vous ressemblent",
-                              style: TextStyle(
-                                fontSize: 17,
-                                color: Colors.white
+                            padding: const EdgeInsets.only(left:8.0,right: 10,),
+                            child: CustomButton(
+                              title:"Professionnel",
+                              onPressed: (){
+                                Navigator.push(
+                                  context, 
+                                  MaterialPageRoute(
+                                    builder: (context)=>PartnerSignUp()
+                                  )
+                                );
+                              }
                               ),
-                            ),
                           ),
-                        Padding(
-                          padding: EdgeInsets.only(right:18,top:10),
-                          child: Text(
-                            "Partagez votre progression avec vos amis",
-                            style: TextStyle(
-                              fontSize: 17,
-                              color: Colors.white
-                            ),
+                          const Padding(
+                            padding: EdgeInsets.only(top:10,bottom: 8,right: 30,left: 30),
+                            child: Text("ou"),
                           ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text(
-                            "Recevez des conseils pour une bonne alimentation",
-                            style: TextStyle(
-                              fontSize: 17,
-                              color: Colors.white
-                            ),
+                          Padding(
+                            padding: const EdgeInsets.only(left:8.0,right: 10),
+                            child: CustomButton(
+                              title:"Utilisateur", 
+                              onPressed: (){
+                                Navigator.push(
+                                  context, 
+                                  MaterialPageRoute(
+                                    builder: (context)=>LangPreference()
+                                  )
+                                );
+                              }
+                            )
                           ),
-                        ),
                         ],
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(right:72.0),
-                        child: Text(
-                          "Observez vous grandir chaque jour",
-                          style: TextStyle(
-                            fontSize: 17,
-                            color: Colors.white
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left:8.0,right: 10,top: 50),
-                        child: SizedBox(
-                          width: 200,
-                          height: MediaQuery.of(context).size.height/20,
-                          child: ElevatedButton.icon(
-                            style: ButtonStyle(
-                              overlayColor: MaterialStateProperty.all(Colors.white),
-                              shadowColor:  MaterialStateProperty.all(Colors.white),
-                              shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                            ),
-                            label: const Text("S'inscrire avec Google"),
-                            onPressed: ()=>{
-                              log("google signin"),
-                             googleAuth.signInWithGoogle().then(
-                                  (value) => {
-                                    if(value!=null){
-                                      // avatar = value.photoUrl.toString(),
-                                      // email = value.email.toString(),
-                                      // username = value.displayName.toString(),
-                                      userStorage.saveUser(value),
-                                      Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.HOME, (route) => false)
-                                    },
-                                    log("signin here $value"),
-                                }    
-                              ),
-                              
-                              // log(user),
-                              
-                            }, 
-                            icon: Image.asset(
-                              AppImages.googleIcon,
-                              height: 20,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const Padding(padding: EdgeInsets.only(
-                        top:10,
-                        bottom: 8,
-                        right: 30,
-                        left: 30
-                        )
-                      ),
-                      // Padding(
-                      //   padding: const EdgeInsets.only(left:8.0,right: 10),
-                      //   child: ElevatedButton.icon(
-                      //     style: ButtonStyle(
-                      //       overlayColor: MaterialStateProperty.all(Colors.white),
-                      //       shadowColor:  MaterialStateProperty.all(Colors.white),
-                      //       shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                      //     ),
-                      //     label: const Text("S'inscrire avec Instagram"),
-                      //      onPressed: ()=>{
-                      //       log("instagram signin")
-                      //     }, 
-                      //     icon: Image.asset(
-                      //       '${assetUrl}instagram.png',
-                      //       height: 20,
-                      //     ),
-                      //   ),
-                      // ),
-                      Padding(
-                        padding: const EdgeInsets.all(35.0),
-                        child: GestureDetector(
-                          onTap: (){
-                            log("se connecter ");
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context)=> const Login()
-                              ),
-                            );
-                          },
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Déjà un compte ? ",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.white
-                                ),
-                              ),
-                              Text(
-                                "Se connecter",
-                                style: TextStyle(
-                                  fontSize: 23,
-                                  color: Colors.white
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        ) 
                       ),
                     ],
                   ),

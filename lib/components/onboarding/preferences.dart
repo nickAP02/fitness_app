@@ -1,6 +1,9 @@
 import 'package:fitness_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 
+import '../auth/login_page.dart';
+import '../reusable/custom_button.dart';
+
 class UserPreference extends StatefulWidget {
   const UserPreference({super.key});
 
@@ -36,17 +39,35 @@ class _UserPreferenceState extends State<UserPreference> {
     TextEditingController textController = TextEditingController();
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
+        child:SizedBox(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text("Nous voulons mieux vous connaître"),
-            const Text("Quelle est votre taille ?"),
+            const Padding(
+              padding: EdgeInsets.only(left:15.0,),
+              child: Text(
+                "Informations personnelles",
+                style: TextStyle(
+                    fontSize: 40,
+                    color: Colors.white
+                )
+              ),
+            ),
+            const SizedBox(height: 50,),
+            const Text("Quelle est votre taille ?",
+            style: TextStyle(
+                fontSize: 20,
+                color: Colors.white
+              )
+            ),
             DropdownMenu(
               onSelected: (taille){
                 print("taille $taille");
               },
               textStyle: const TextStyle(
+                fontSize: 20,
                 color: AppColors.primaryTextColor
               ),
               menuStyle: MenuStyle(
@@ -54,51 +75,101 @@ class _UserPreferenceState extends State<UserPreference> {
               ),
               dropdownMenuEntries: tailles.map((item) => DropdownMenuEntry(label:item,value: item)).toList()
             ),
-            const Text("Quel est votre poids ?"),
-            TextField(
-              // keyboardType: TextInputType.numberWithOptions(),
-              controller: textController,
-              onChanged: (value) {
-                // value = textController.text;
-                print("value $value");
-              },
+            const Text(
+              "Quel est votre poids ?",
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.white
+              )
             ),
-            const Text("Quel est votre sexe ?"),
-            Row(
-              children: [
-                Row(
-                  children: [
-                    const Text("Féminin"),
-                    Checkbox(
-                      // tristate: isChecked,
-                      value: isChecked, 
-                      onChanged: (value){
-                        isChecked = value!;
-                        print("val $value");
-                        print("checked $isChecked");
-                      }
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Text("Masculin"),
-                    Checkbox(
-                      // tristate: isChecked,
-                      value: isChecked, 
-                      onChanged: (value){
-                        isChecked = value!;
-                        print("val $value");
-                        print("checked $isChecked");
-                      }
-                    ),
-                  ],
-                )
-              ],
+            Container(
+              width: 500,
+              child: TextField(
+                // keyboardType: TextInputType.numberWithOptions(),
+                controller: textController,
+                onChanged: (value) {
+                  // value = textController.text;
+                  print("value $value");
+                },
+              ),
             ),
-            
+            const Text(
+              "Quel est votre sexe ?",
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.white
+              )
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left:10.0),
+              child: Row(
+                children: [
+                  Row(
+                    children: [
+                      const Text(
+                        "Féminin",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white
+                        )
+                      ),
+                      Checkbox(
+                        // tristate: isChecked,
+                        value: isChecked, 
+                        onChanged: (value){
+                          isChecked = value!;
+                          print("val $value");
+                          print("checked $isChecked");
+                        }
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Text(
+                        "Masculin",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white
+                        )
+                      ),
+                      Checkbox(
+                        // tristate: isChecked,
+                        value: isChecked, 
+                        onChanged: (value){
+                          isChecked = value!;
+                          print("val $value");
+                          print("checked $isChecked");
+                        }
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+            CustomButton(title:"Suivant",onPressed: (){
+              setState(() {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor: Colors.red,
+                    content: Text(
+                      "Compte crée avec succès",
+                      style:TextStyle(color: Colors.white)
+                      )
+                    )
+                );
+                Navigator.push(
+                  context, 
+                  MaterialPageRoute(
+                    builder: (context)=>Login()
+                  )
+                );
+                
+              });
+            },)
           ],
         ),
+      )
       ),
     );
   }

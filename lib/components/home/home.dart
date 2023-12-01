@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fitness_app/components/diets/diet_card.dart';
+import 'package:fitness_app/components/diets/diet_list.dart';
 import 'package:fitness_app/components/exercises/exercise_card.dart';
 import 'package:fitness_app/components/plans/plan_card.dart';
 import 'package:fitness_app/components/gyms/gym_center_card.dart';
@@ -16,8 +18,9 @@ import '../../models/partner.dart';
 import '../../models/diet.dart';
 import '../../models/category.dart';
 import '../../utils/colors.dart';
+import '../exercises/exercice_list.dart';
 import '../reusable/app_drawer.dart';
-import '../reusable/search_bar.dart';
+
 
 
 class Home extends StatefulWidget {
@@ -33,21 +36,30 @@ class _HomeState extends State<Home> {
   List<GymCenter> gyms = [];
   List<Exercice> exercices = [];
   List<Diet> diets = [];
+  List<Plan> plans = [];
   List<PartnerEntity> partnerEntities = [];
   List<ExerciseEntity> exerciseEntities = [];
   List<CategoryEntity> planEntities = [];
   List<DietEntity> dietEntities = [];
+  List<ExerciseEntity> planExercises = [];
+  List<DietEntity> planDiets = [];
   int _current = 0;
   int notification_count=0;
   String username="";
-  
+  List exportData = [];
   void getUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     notification_count = prefs.getInt("notification_count")??0;
-    username = prefs.getString("username")!;
+    username = prefs.getString("username")??"User";
+    prefs.setInt("partners",partnerEntities.length);
+    prefs.setInt("exercises", exerciseEntities.length);
+    prefs.setInt("diets",dietEntities.length);
+    prefs.setString("exercice_list", json.encode(exerciseEntities));
+    prefs.setString("diet_list", json.encode(dietEntities));
+    prefs.setString("search_data", json.encode(exportData));
   }
   @override
-  void initState() async{
+  void initState() {
     super.initState();
     loading = true;
     partnerEntities.addAll(
@@ -99,14 +111,13 @@ class _HomeState extends State<Home> {
 
       }
     }
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt("partners",partnerEntities.length);
+    
     exerciseEntities.addAll(
       [
         ExerciseEntity(
           exercise_id:1,
           title:"Sprint rapide",
-          description:"Maintien du corps",
+          description:"Course rapide",
           time: 5,
           illustration: AppImages.exerciceSample1,
           plan_id: CategoryEntity(
@@ -118,7 +129,7 @@ class _HomeState extends State<Home> {
         ExerciseEntity(
           exercise_id:2,
           title:"Pompes",
-          description:"Maintien du corps",
+          description:"Pompes alternées",
           time: 10,
           illustration: AppImages.exerciceSample2,
           plan_id: CategoryEntity(
@@ -127,19 +138,40 @@ class _HomeState extends State<Home> {
             illustration: AppImages.exerciceSample1
           )
         ),
+        ExerciseEntity(
+          exercise_id:3,
+          title:"Pompes",
+          description:"Pompes avec bras largement étendues",
+          time: 10,
+          illustration: AppImages.exerciceSample2,
+          plan_id: CategoryEntity(
+            category_id: 2,
+            description: "Perte de poids",
+            illustration: AppImages.exerciceSample1
+          )
+        ),
+        ExerciseEntity(
+          exercise_id:4,
+          title:"Saut à la corde",
+          description:"Saut à la corde pour améliorer le cardio",
+          time: 10,
+          illustration: AppImages.exerciceSample2,
+          plan_id: CategoryEntity(
+            category_id: 2,
+            description: "Perte de poids",
+            illustration: AppImages.exerciceSample1
+          )
+        ),
       ]
     );
     for (var i = 0; i < exerciseEntities.length; i++) {
       exercices.add(
         Exercice(
-          description: exerciseEntities[i].description!,
-          time: exerciseEntities[i].time, 
-          category: exerciseEntities[i].plan_id!.description!, 
-          image: exerciseEntities[i].illustration!
+          exercise: exerciseEntities[i],
         )
       );
     }
-    prefs.setInt("exercises", exerciseEntities.length);
+    
     dietEntities.addAll(
       [
        DietEntity(
@@ -166,19 +198,76 @@ class _HomeState extends State<Home> {
           calory: 120, 
           illustration: AppImages.dietSample1
         ),
+        DietEntity(
+          diet_id: 3,
+          title: "Plat 3",
+          description: "Contenu plat 3", 
+          plan_id: CategoryEntity(
+            category_id: 1, 
+            description: "Perte du poids", 
+            illustration: AppImages.dietSample1
+          ), 
+          calory: 120, 
+          illustration: AppImages.dietSample1
+        ),
+        DietEntity(
+          diet_id: 4,
+          title: "Plat 4",
+          description: "Contenu plat 4", 
+          plan_id: CategoryEntity(
+            category_id: 2, 
+            description: "Perte du poids", 
+            illustration: AppImages.dietSample2
+          ), 
+          calory: 120, 
+          illustration: AppImages.dietSample1
+        ),
       ]
     );
     for (var i = 0; i < dietEntities.length; i++) {
       diets.add(
         Diet(
-          description: dietEntities[i].description!,
-          calory: dietEntities[i].calory!,
-          category: dietEntities[i].plan_id!.description!,
-          image: dietEntities[i].illustration!,
+          data: dietEntities[i],
         )
       );
     }
-    prefs.setInt("diets",dietEntities.length);
+    planEntities.addAll(
+      [
+        CategoryEntity(
+          category_id: 1,
+          description:"Maintien du corps",
+          illustration: AppImages.planSample1
+        ),
+        CategoryEntity(
+          category_id: 2,
+          description:"Perte de poids",
+          illustration: AppImages.planSample2
+        ),
+      ]
+    );
+    for (var i = 0; i < planEntities.length; i++) {
+      for (var j = 0; j < exerciseEntities.length; j++) {
+        if(exerciseEntities[j].plan_id?.category_id==planEntities[i].category_id){
+          planExercises.add(exerciseEntities[j]);
+        }
+        
+      }
+      for (var k = 0; k < dietEntities.length; k++) {
+        if(dietEntities[k].plan_id!.category_id==planEntities[i].category_id){
+          planDiets.add(dietEntities[k]);
+        }
+      }
+      print("plan diets ${planDiets.length}");
+      print("plan exercises ${planExercises.length}");
+      plans.add(
+        Plan(
+          plan: planEntities[i], 
+          exercices: planExercises, 
+          diets: planDiets
+        )
+      );
+    }
+    exportData = [dietEntities,exerciseEntities];
     getUserData();
   }
   @override
@@ -252,18 +341,6 @@ class _HomeState extends State<Home> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            makeSearchOption(context,
-            (){
-              setState(() {
-                
-              });
-            },
-            (){
-              setState(() {
-                
-              });
-            }
-            ),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Text(
@@ -273,6 +350,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
             ),
+            
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: CarouselSlider(
@@ -331,7 +409,11 @@ class _HomeState extends State<Home> {
                 GestureDetector(
                   onTap: () {
                     log("liste des exercices");
-                    Navigator.of(context).pushNamed(AppRoutes.EXERCICES);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => Exercices(
+                        data: exerciseEntities,
+                      ),)
+                    );
                   },
                   child: const Padding(
                     padding: EdgeInsets.all(15.0),
@@ -346,51 +428,41 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
-            SingleChildScrollView(
-              child: GridView.count(
-                crossAxisCount: 2,
-                scrollDirection: Axis.vertical,
+            SizedBox(
+              height: MediaQuery.of(context).size.height*0.2,
+              width: MediaQuery.of(context).size.width,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
                 shrinkWrap: true,
-                padding: const EdgeInsets.only(left: 10,right: 15,top: 10),
+                // padding: const EdgeInsets.only(left: 10,right: 15,top: 10),
                 children: exercices.toList(),
               ),
             ),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(left: 10,right: 5,top: 10),
-                  child: Text(
-                    "Plans",
-                    style: TextStyle(
-                      color: AppColors.primaryColor,
-                      fontSize: 15,
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    log("liste des plans");
-                  },
-                  child: const Padding(
-                    padding: EdgeInsets.all(15.0),
-                    child: Text(
-                      "Voir tout",
-                      style: TextStyle(
-                          color: AppColors.primaryColor,
-                          fontSize: 8,
-                        ),
-                    ),
-                  ),
-                ),
-              ],
+            SizedBox(
+              height: 20,
             ),
-            Plan(
-              title: 'PERTE DE POIDS',
-              image: AppImages.planSample2,
-              callback: (){
-                const SnackBar(content: Text("Vous avez choisi de perdre du poids"));
-              },
+            const Padding(
+              padding: EdgeInsets.only(left: 10,right: 5,top: 10),
+              child: Text(
+                "Découvrez des plans",
+                style: TextStyle(
+                  color: AppColors.primaryColor,
+                  fontSize: 15,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height*0.2,
+              width: MediaQuery.of(context).size.width,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                // padding: const EdgeInsets.only(left: 10,right: 15,top: 10),
+                children: plans.toList(),
+              ),
+            ),
+            SizedBox(
+              height: 20,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -408,7 +480,11 @@ class _HomeState extends State<Home> {
                 GestureDetector(
                   onTap: () {
                     log("liste des diets");
-                    Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.NUTRITION, (route) => false);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => Diets(
+                        data: dietEntities,
+                      ),)
+                    );
                   },
                   child: const Padding(
                     padding: EdgeInsets.all(15.0),
@@ -423,13 +499,19 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
-            GridView.count(
-                crossAxisCount: 2,
-                scrollDirection: Axis.vertical,
+            SizedBox(
+              height: MediaQuery.of(context).size.height*0.2,
+              width: MediaQuery.of(context).size.width,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
                 shrinkWrap: true,
-                padding: const EdgeInsets.only(left: 10,right: 15,top: 10),
+                // padding: const EdgeInsets.only(left: 10,right: 15,top: 10),
                 children: diets.toList(),
               ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
           ],
         ),
       ):const Center(child: CircularProgressIndicator(color: AppColors.primaryColor,)),

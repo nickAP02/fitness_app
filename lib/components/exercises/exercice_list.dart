@@ -1,64 +1,46 @@
 import 'package:fitness_app/components/reusable/custom_appbar.dart';
+import 'package:fitness_app/models/exercise.dart';
 import 'package:flutter/material.dart';
 
-import '../../utils/images.dart';
 import 'exercise_card.dart';
 import 'exercise_details.dart';
 
 class Exercices extends StatefulWidget {
-  const Exercices({super.key});
+  List<ExerciseEntity> data;
+  Exercices({
+    super.key,
+    required this.data
+  });
 
   @override
   State<Exercices> createState() => _ExercicesState();
 }
 
 class _ExercicesState extends State<Exercices> {
-  List<Exercice> exercices = [
-    Exercice(
-      description: "Sprint rapide", 
-      time: 5, 
-      category: "Maintien du corps", 
-      image: AppImages.exerciceSample1
-    ),
-    Exercice(
-      description: "Sprint rapide", 
-      time: 10, 
-      category: "Maintien du corps", 
-      image: AppImages.exerciceSample1
-    ),
-    Exercice(
-      description: "Pompes", 
-      time: 3, 
-      category: "Maintien du corps", 
-      image: AppImages.exerciceSample1
-    ),
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar("Liste des exercies", context),
       body: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-        itemCount: exercices.length,
+        itemCount: widget.data.length,
         itemBuilder: (context, index) {
          return GestureDetector(
             onTap: (){
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context)=> ExerciseDetail(
-                    description: exercices[index].description,
-                    time: exercices[index].time,
-                    category: exercices[index].category,
-                    image: exercices[index].image,
+                    title: widget.data[index].title!,
+                    description: widget.data[index].description!,
+                    time: widget.data[index].time,
+                    category: widget.data[index].plan_id!.description!,
+                    image: widget.data[index].illustration!,
                   )
                 ),
               );
             },
             child: Exercice(
-              description: exercices[index].description, 
-              time: exercices[index].time, 
-              category: exercices[index].category, 
-              image: exercices[index].image
+              exercise: widget.data[index],
             ),
           );
         },

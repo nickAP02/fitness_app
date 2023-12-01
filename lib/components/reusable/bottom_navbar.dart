@@ -1,15 +1,18 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'package:fitness_app/components/home/home.dart';
 import 'package:fitness_app/service/local_storage.dart';
 import 'package:fitness_app/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/app_theme.dart';
 import '../../utils/colors.dart';
+import '../home/search_page.dart';
 import '../settings.dart';
 
 class BottomNavBar extends StatelessWidget {
-  final LocalStorage userStorage = LocalStorage();
+
   BottomNavBar({
     super.key,
   });
@@ -44,7 +47,12 @@ class BottomNavBar extends StatelessWidget {
           icon: IconButton(
             onPressed: ()=>{
               log("boutton recherche"),
-              Navigator.of(context).pushNamed(AppRoutes.SEARCH)
+              // Navigator.of(context).pushNamed(AppRoutes.SEARCH)
+              Navigator.push(context, 
+                MaterialPageRoute(
+                  builder: ((context) =>Search() ),
+                )
+              )
             }, 
             icon: const Icon(Icons.search_rounded,color: AppColors.secondaryColor,)
           )

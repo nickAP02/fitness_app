@@ -1,15 +1,15 @@
 import 'package:fitness_app/components/auth/login_page.dart';
 import 'package:fitness_app/components/home/profile.dart';
 import 'package:fitness_app/components/home/search_page.dart';
-import 'package:fitness_app/components/plans/plan_list.dart';
 import 'package:fitness_app/components/settings.dart';
 import 'package:flutter/material.dart';
 
 import '../components/auth/signup_page.dart';
-import '../components/diets/diet_list.dart';
-import '../components/exercises/exercice_list.dart';
 import '../components/home/home.dart';
 import '../components/home/notification.dart';
+import '../components/onboarding/lang_preference.dart';
+import '../components/onboarding/plan_preference.dart';
+import '../components/onboarding/preferences.dart';
 // import '../components/onboarding/splash.dart';
 
 class AppPages {
@@ -19,32 +19,32 @@ class AppPages {
       //   route: AppRoutes.INITIAL,
       //   page: const Splash(),
       // ),
-      // PageEntity(
-      //   route: AppRoutes.LANG,
-      //   page: const LangPreference(),
-      //   // bloc: BlocProvider(
-      //   //   create: (_) => WelcomeBloc(),
-      //   // ),
-      // ),
-      // PageEntity(
-      //   route: AppRoutes.PLAN_PREF,
-      //   page: const PlanPreferences(),
-      //   // bloc: BlocProvider(
-      //   //   create: (_) => WelcomeBloc(),
-      //   // ),
-      // ),
-      // PageEntity(
-      //   route: AppRoutes.USER_PREF,
-      //   page: const UserPreference(),
-      //   // bloc: BlocProvider(
-      //   //   create: (_) => WelcomeBloc(),
-      //   // ),
-      // ),
       PageEntity(
         route: AppRoutes.SIGN_UP,
         page: const SignUp(),
         // bloc: BlocProvider(
         //   create: (_) => SignInBloc(),
+        // ),
+      ),
+      PageEntity(
+        route: AppRoutes.LANG,
+        page: const LangPreference(),
+        // bloc: BlocProvider(
+        //   create: (_) => WelcomeBloc(),
+        // ),
+      ),
+      PageEntity(
+        route: AppRoutes.PLAN_PREF,
+        page: const PlanPreferences(),
+        // bloc: BlocProvider(
+        //   create: (_) => WelcomeBloc(),
+        // ),
+      ),
+      PageEntity(
+        route: AppRoutes.USER_PREF,
+        page: const UserPreference(),
+        // bloc: BlocProvider(
+        //   create: (_) => WelcomeBloc(),
         // ),
       ),
       PageEntity(
@@ -75,13 +75,13 @@ class AppPages {
       //   //   create: (_) => AppBlocs(),
       //   // ),
       // ),
-      PageEntity(
-        route: AppRoutes.PLANS,
-        page: const Plans(),
-        // bloc: BlocProvider(
-        //   create: (_) => AppBlocs(),
-        // ),
-      ),
+      // PageEntity(
+      //   route: AppRoutes.PLANS,
+      //   page: const Plans(),
+      //   // bloc: BlocProvider(
+      //   //   create: (_) => AppBlocs(),
+      //   // ),
+      // ),
       // PageEntity(
       //   route: AppRoutes.PARTNERS,
       //   page: const Partners(),
@@ -89,13 +89,6 @@ class AppPages {
       //   //   create: (_) => AppBlocs(),
       //   // ),
       // ),
-      PageEntity(
-        route: AppRoutes.NUTRITION,
-        page: const Diets(),
-        // bloc: BlocProvider(
-        //   create: (_) => AppBlocs(),
-        // ),
-      ),
       // PageEntity(
       //   route: AppRoutes.APROPOS,
       //   page: const About(),
@@ -103,13 +96,6 @@ class AppPages {
       //   //   create: (_) => AppBlocs(),
       //   // ),
       // ),
-      PageEntity(
-        route: AppRoutes.EXERCICES,
-        page: const Exercices(),
-        // bloc: BlocProvider(
-        //   create: (_) => AppBlocs(),
-        // ),
-      ),
       PageEntity(
         route: AppRoutes.PARAMS,
         page: const Settings(),
@@ -119,7 +105,7 @@ class AppPages {
       ),
       PageEntity(
         route: AppRoutes.SEARCH,
-        page: const Search(),
+        page: Search(),
         // bloc: BlocProvider(
         //   create: (_) => AppBlocs(),
         // ),
@@ -190,13 +176,13 @@ class AppRoutes {
   // static const WELCOME = '/welcome';
   //lang preferences page
   // ignore: constant_identifier_names
-  // static const LANG = '/lang';
+  static const LANG = '/lang';
   //user preferences page
   // ignore: constant_identifier_names
-  // static const PLAN_PREF = '/plan_pref';
+  static const PLAN_PREF = '/plan_pref';
   //user preferences page
   // ignore: constant_identifier_names
-  // static const USER_PREF = '/user_pref';
+  static const USER_PREF = '/user_pref';
   //sign in page
   // ignore: constant_identifier_names
   static const SIGN_UP = '/sign_in';

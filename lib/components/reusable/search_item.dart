@@ -3,12 +3,16 @@ import 'dart:developer';
 
 import '../../utils/colors.dart';
 class SearchItem extends StatefulWidget {
-  String? title;
-  bool? isSelected;
+  int id=0;
+  String title;
+  bool isSelected;
+  Function showItems;
   SearchItem({
     super.key,
-    required this.isSelected,
-    required this.title
+    required this.id,
+    this.isSelected=true,
+    required this.title,
+    required this.showItems
   });
   
   @override
@@ -25,8 +29,10 @@ class SearchItemState extends State<SearchItem>{
     return  GestureDetector(
       onTap:(){
         setState((){
-          widget.isSelected = !widget.isSelected!;
+          widget.isSelected = !widget.isSelected;
+          widget.showItems;
           log("bool value ${widget.isSelected.toString()}");
+          log("fun ${widget.showItems.call()}");
         });
       },
       child:Container(
@@ -34,22 +40,22 @@ class SearchItemState extends State<SearchItem>{
         height: 20,
         margin: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: widget.isSelected!?AppColors.secondaryColor.withOpacity(0.3):AppColors.primaryColor,
+          color: widget.isSelected?AppColors.secondaryColor.withOpacity(0.3):AppColors.primaryColor,
           border: Border.all(
-            color: widget.isSelected!?AppColors.primaryColor:AppColors.secondaryColor
+            color: widget.isSelected?AppColors.primaryColor:AppColors.secondaryColor
           ),
           borderRadius: BorderRadius.circular(30)
         ),
         child: Center(
           child: Text(
-            widget.title!,
+            widget.title,
             style: TextStyle(
               color: widget.isSelected!?AppColors.primaryColor:AppColors.secondaryColor,
               fontSize: 12
             ),
           ),
         ),
-    ),
+      ),
     );
   }
 }

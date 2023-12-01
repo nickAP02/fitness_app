@@ -28,7 +28,10 @@ class _NotificationPageState extends State<NotificationPage> {
             title: Text("Notif $index"),
             subtitle: Text("Contenu notif $index"),
             onTap: (){
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Notif $index cliqué")));
+              setState(() {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Notif $index cliqué")));
+                
+              });
             },
           );
         },

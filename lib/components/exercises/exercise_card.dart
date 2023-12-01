@@ -2,42 +2,38 @@
 import 'package:fitness_app/components/exercises/exercise_details.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/exercise.dart';
 import '../../utils/colors.dart';
 
 // ignore: must_be_immutable
 class Exercice extends StatelessWidget {
-  String description;
-  dynamic time;
-  String category;
-  String image;
+  ExerciseEntity exercise;
   Exercice({super.key, 
-    required this.description,
-    required this.time,
-    required this.category,
-    required this.image
+    required this.exercise
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        Navigator.of(context).pushReplacement(
+        Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context)=> ExerciseDetail(
-              description: description,
-              time: time,
-              category: category,
-              image: image,
+              title: exercise.title!,
+              description: exercise.description!,
+              time: exercise.time,
+              category: exercise.plan_id!.description!,
+              image: exercise.illustration!,
             )
           ),
         );
       },
       child: Container(
-          height: 120,
-          width: 80,
+          height: MediaQuery.of(context).size.height*0.2,
+          width: MediaQuery.of(context).size.width*0.4,
           margin: const EdgeInsets.all(5),
           decoration: BoxDecoration(
-            color: AppColors.primaryColor,
+            color: AppColors.primaryTextColor,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
               color: AppColors.primaryColor
@@ -50,11 +46,12 @@ class Exercice extends StatelessWidget {
             fit: BoxFit.cover,
             scale: 1,
             opacity: 1,
-            image: AssetImage(image)
+            image: AssetImage(exercise.illustration!)
           ),
           ),
           child: Center(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
@@ -68,7 +65,7 @@ class Exercice extends StatelessWidget {
                     width: 60,
                     child: Center(
                       child: Text(
-                        category,
+                        exercise.plan_id!.description!,
                         style: const TextStyle(
                           // backgroundColor: primaryColor,
                           fontSize: 6,
@@ -81,7 +78,7 @@ class Exercice extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right:58.0),
                   child: Text(
-                    description,
+                    exercise.description!,
                     style: const TextStyle(
                       fontSize: 10,
                       color: AppColors.primaryColor
@@ -91,7 +88,7 @@ class Exercice extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 90.0,top: 5),
                   child: Text(
-                    '$time min',
+                    '${exercise.time} min',
                     style: const TextStyle(
                       fontSize: 10,
                       color: AppColors.primaryColor

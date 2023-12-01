@@ -1,20 +1,14 @@
 import 'package:fitness_app/components/diets/diet_details.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/diet.dart';
 import '../../utils/colors.dart';
 
 // ignore: must_be_immutable
 class Diet extends StatelessWidget {
-  String description;
-  double calory;
-  String category;
-  String image;
+  DietEntity data;
   Diet({super.key, 
-    required this.description,
-    required this.calory,
-    required this.category,
-    required this.image,
-  
+    required this.data, 
   });
 
   @override
@@ -24,37 +18,43 @@ class Diet extends StatelessWidget {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context)=> DietDetails(
-              description: description,
-              calory: calory,
-              category: category,
-              image: image,
+              title: data.title!,
+              description: data.description!,
+              calory: data.calory!,
+              category: data.plan_id!.description!,
+              image: data.illustration!,
             )
           ),
         );
       },
       child: Container(
-          height: 120,
-          width: 110,
+          height: MediaQuery.of(context).size.height*0.2,
+          width: MediaQuery.of(context).size.width*0.4,
           margin: const EdgeInsets.all(5),
           decoration: BoxDecoration(
-            color: AppColors.primaryColor,
+            color: AppColors.primaryTextColor,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
               color: AppColors.primaryColor
             ),
             image: DecorationImage(
+            colorFilter: ColorFilter.mode(
+              Colors.black.withOpacity(0.5),
+              BlendMode.darken,
+            ),
             fit: BoxFit.cover,
             scale: 1,
             opacity: 1,
-            image: AssetImage(image)
+            image: AssetImage(data.illustration!)
           ),
           ),
           child: Center(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(bottom:65.0,right: 90),
+                  padding: const EdgeInsets.only(bottom:65.0,left: 80),
                   child: Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
@@ -64,7 +64,7 @@ class Diet extends StatelessWidget {
                     width: 60,
                     child: Center(
                       child: Text(
-                        category.toString(),
+                        data.plan_id!.description!.toString(),
                         style: const TextStyle(
                           backgroundColor: AppColors.primaryColor,
                           fontSize: 6,
@@ -75,9 +75,9 @@ class Diet extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right:58.0),
+                  padding: const EdgeInsets.only(right:58 ),
                   child: Text(
-                    description,
+                    data.title!,
                     style: const TextStyle(
                       fontSize: 10,
                       color: AppColors.primaryColor
@@ -85,9 +85,9 @@ class Diet extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 62.0,top: 5),
+                  padding: const EdgeInsets.only(right: 90.0,top: 5),
                   child: Text(
-                    '$calory kCal',
+                    '${data.calory} kCal',
                     style: const TextStyle(
                       fontSize: 10,
                       color: AppColors.primaryColor

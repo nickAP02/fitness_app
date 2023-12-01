@@ -16,11 +16,13 @@ class AppDrawer extends StatefulWidget {
 }
 
 class _AppDrawerState extends State<AppDrawer> {
+  String user_avatar="";
   void logout() async{
     log("google sign out");
     // googleAuth.signOutWithGoogle();
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.clear();
+    user_avatar = prefs.getString("avatar")??"";
+    // prefs.clear();
     Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.LOGIN, (route) => false);
   }
   @override

@@ -35,11 +35,11 @@ class _SettingsState extends State<Settings> {
           ),
           ListTile(
             onTap: ()=>{
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context)=> const MembershipCard()
-                ),
-              ),
+              // Navigator.of(context).push(
+              //   MaterialPageRoute(
+              //     builder: (context)=> const MembershipCard()
+              //   ),
+              // ),
             },
             leading: const Icon(
               Icons.card_membership,

@@ -94,9 +94,10 @@ class _LoginState extends State<Login> {
                 child: 
                 Center(
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Padding(
-                        padding: EdgeInsets.only(top:178.0,left: 10),
+                        padding: EdgeInsets.only(left: 10),
                         child: Text(
                           "De retour parmi la communauté des MyFiteurs !",
                           style: TextStyle(
@@ -146,9 +147,10 @@ class _LoginState extends State<Login> {
                       //   ),
                       // ),
                       const Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                           padding: EdgeInsets.only(left:15.0,top: 30),
+                           padding: EdgeInsets.only(top: 30, left:20),
                             child: Text(
                                 "Trouvez les meilleurs coachs personnels ou centre sportifs les plus proches de chez vous💪.",
                                 style: TextStyle(
@@ -158,7 +160,7 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(top:20.0,left: 15),
+                            padding: EdgeInsets.only(top:20.0, left:20),
                             child: Center(
                               child: Text(
                                 "Connectez-vous avec d'autres passionnés comme vous.",
@@ -170,7 +172,7 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(top:20.0,right: 70,left: 28),
+                            padding: EdgeInsets.only(top:20.0, left:20),
                             child: Text(
                               "Surtout atteignez vos objectifs🔥.",
                                 style: TextStyle(

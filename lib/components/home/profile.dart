@@ -100,10 +100,10 @@ class _ProfileState extends State<Profile> {
             children: [
               Stack(
                 children: [
-                  CircleAvatar(
+                  avatar.isEmpty?CircleAvatar(
                     radius: 50,
                     backgroundImage: NetworkImage(avatar),
-                  ),
+                  ):Image.asset("storage/$avatar"),
                   Positioned(
                     bottom: 0,
                     right: 0,
