@@ -1,5 +1,6 @@
 import 'package:fitness_app/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../auth/login_page.dart';
 import '../reusable/custom_button.dart';
@@ -30,145 +31,176 @@ class _UserPreferenceState extends State<UserPreference> {
     "1m90",
     "2m"
   ]; 
-  String? taille;
+  String taille="";
+  String sexe="";
+  double poids=0;
   bool isChecked=true;
+  final formKey = GlobalKey<FormState>();
+  TextEditingController textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     double hauteur = MediaQuery.of(context).size.height;
     double largeur = MediaQuery.of(context).size.width;
-    TextEditingController textController = TextEditingController();
     return Scaffold(
       body: SingleChildScrollView(
         child:SizedBox(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(left:15.0,),
-              child: Text(
-                "Informations personnelles",
-                style: TextStyle(
-                    fontSize: 40,
-                    color: Colors.white
+          child: Form(
+            key: formKey,
+            child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(left:15.0,),
+                child: Text(
+                  "Informations personnelles",
+                  style: TextStyle(
+                      fontSize: 40,
+                      color: Colors.white
+                  )
+                ),
+              ),
+              const SizedBox(height: 50,),
+              const Text("Quelle est votre taille ?",
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white
                 )
               ),
-            ),
-            const SizedBox(height: 50,),
-            const Text("Quelle est votre taille ?",
-            style: TextStyle(
-                fontSize: 20,
-                color: Colors.white
-              )
-            ),
-            DropdownMenu(
-              onSelected: (taille){
-                print("taille $taille");
-              },
-              textStyle: const TextStyle(
-                fontSize: 20,
-                color: AppColors.primaryTextColor
-              ),
-              menuStyle: MenuStyle(
-                backgroundColor: MaterialStateProperty.all(AppColors.primaryColor),
-              ),
-              dropdownMenuEntries: tailles.map((item) => DropdownMenuEntry(label:item,value: item)).toList()
-            ),
-            const Text(
-              "Quel est votre poids ?",
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.white
-              )
-            ),
-            Container(
-              width: 500,
-              child: TextField(
-                // keyboardType: TextInputType.numberWithOptions(),
-                controller: textController,
-                onChanged: (value) {
-                  // value = textController.text;
-                  print("value $value");
+              const SizedBox(height: 20,),
+              DropdownMenu(
+                width: largeur,
+                onSelected: (taille){
+                  print("taille $taille");
                 },
+                textStyle: const TextStyle(
+                  fontSize: 20,
+                  color: AppColors.primaryTextColor
+                ),
+                menuStyle: MenuStyle(
+                  backgroundColor: MaterialStateProperty.all(AppColors.primaryColor),
+                ),
+                dropdownMenuEntries: tailles.map((item) => DropdownMenuEntry(label:item,value: item)).toList()
               ),
-            ),
-            const Text(
-              "Quel est votre sexe ?",
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.white
-              )
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left:10.0),
-              child: Row(
-                children: [
-                  Row(
-                    children: [
-                      const Text(
-                        "Féminin",
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white
-                        )
-                      ),
-                      Checkbox(
-                        // tristate: isChecked,
-                        value: isChecked, 
-                        onChanged: (value){
-                          isChecked = value!;
-                          print("val $value");
-                          print("checked $isChecked");
-                        }
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Text(
-                        "Masculin",
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white
-                        )
-                      ),
-                      Checkbox(
-                        // tristate: isChecked,
-                        value: isChecked, 
-                        onChanged: (value){
-                          isChecked = value!;
-                          print("val $value");
-                          print("checked $isChecked");
-                        }
-                      ),
-                    ],
-                  )
-                ],
+              const Text(
+                "Quel est votre poids ?",
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white
+                )
               ),
-            ),
-            CustomButton(title:"Suivant",onPressed: (){
-              setState(() {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    backgroundColor: Colors.red,
-                    content: Text(
-                      "Compte crée avec succès",
-                      style:TextStyle(color: Colors.white)
-                      )
+              const SizedBox(height: 20,),
+              Container(
+                // height: hauteur*0.2,
+                width: largeur,
+                child: TextField(
+                  keyboardType: const TextInputType.numberWithOptions(),
+                  controller: textController,
+                  onChanged: (value) {
+                    // value = textController.text;
+                    print("value $value");
+                    poids = value as double;
+                  },
+                ),
+              ),
+              const Text(
+                "Quel est votre sexe ?",
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white
+                )
+              ),
+              const SizedBox(height: 20,),
+              Padding(
+                padding: const EdgeInsets.only(left:10.0),
+                child: Row(
+                  children: [
+                    Row(
+                      children: [
+                        const Text(
+                          "F",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white
+                          )
+                        ),
+                        Radio(
+                          groupValue: isChecked,
+                          value: isChecked, 
+                          onChanged: (value){
+                            setState(() {
+                              isChecked = value!;
+                              print("val $value");
+                              print("checked $isChecked");
+                              if(isChecked==true){
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                   backgroundColor: Colors.red,
+                                  content: Text("Checked"))
+                                  );
+                              }
+                            });
+                          }
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        const Text(
+                          "M",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white
+                          )
+                        ),
+                        Radio(
+                          groupValue: isChecked,
+                          value: isChecked, 
+                          onChanged: (value){
+                            setState(() {
+                              isChecked = value!;
+                              print("val $value");
+                              print("checked $isChecked");
+                              if(isChecked==true){
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                   backgroundColor: Colors.red,
+                                  content: Text("Checked")));
+                              }
+                            });
+                          }
+                        ),
+                      ],
                     )
-                );
-                Navigator.push(
-                  context, 
-                  MaterialPageRoute(
-                    builder: (context)=>Login()
-                  )
-                );
-                
-              });
-            },)
-          ],
-        ),
+                  ],
+                ),
+              ),
+              CustomButton(title:"Suivant",onPressed: ()async{
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                prefs.setString("height", taille);
+                prefs.setDouble("weight", poids);
+                prefs.setString("sex", sexe);
+                setState(() {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Colors.red,
+                      content: Text(
+                        "Compte crée avec succès",
+                        style:TextStyle(color: Colors.white)
+                        )
+                      )
+                  );
+                  Navigator.push(
+                    context, 
+                    MaterialPageRoute(
+                      builder: (context)=>Login()
+                    )
+                  );
+                  
+                });
+              },)
+            ],
+                  ),
+          ),
       )
       ),
     );

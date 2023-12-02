@@ -204,7 +204,7 @@ class _HomeState extends State<Home> {
           description: "Contenu plat 3", 
           plan_id: CategoryEntity(
             category_id: 1, 
-            description: "Perte du poids", 
+            description: "Maintien du corps", 
             illustration: AppImages.dietSample1
           ), 
           calory: 120, 
@@ -220,7 +220,7 @@ class _HomeState extends State<Home> {
             illustration: AppImages.dietSample2
           ), 
           calory: 120, 
-          illustration: AppImages.dietSample1
+          illustration: AppImages.dietSample2
         ),
       ]
     );
@@ -257,8 +257,6 @@ class _HomeState extends State<Home> {
           planDiets.add(dietEntities[k]);
         }
       }
-      print("plan diets ${planDiets.length}");
-      print("plan exercises ${planExercises.length}");
       plans.add(
         Plan(
           plan: planEntities[i], 

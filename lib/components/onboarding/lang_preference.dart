@@ -21,6 +21,7 @@ class _LangPreferenceState extends State<LangPreference> {
   String telephone = "";
   int lang=0;
   var userData;
+  var borderColor=AppColors.primaryColor;
   void getUserData() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     username = prefs.getString('username')??"";
@@ -29,6 +30,7 @@ class _LangPreferenceState extends State<LangPreference> {
     sexe = prefs.getString('sex')??"";
     telephone = prefs.getString('telephone')??"";
   }
+  int borderWidth = 2;
   @override
   void initState() {
     // TODO: implement initState
@@ -77,12 +79,18 @@ class _LangPreferenceState extends State<LangPreference> {
                               color: AppColors.primaryColor,
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(
-                                color: AppColors.primaryColor
+                                width: borderWidth.toDouble(),
+                                color: borderColor,
+                                style: BorderStyle.solid
                               ),
                             ),
                             child: Center(
                               child: GestureDetector(
                                 onTap: () async{
+                                  setState(() {
+                                    borderWidth=4;
+                                    borderColor = AppColors.primaryTextColor;
+                                  });
                                   log("lang en");
                                   SharedPreferences prefs = await SharedPreferences.getInstance();
                                   lang = 0;
@@ -118,12 +126,21 @@ class _LangPreferenceState extends State<LangPreference> {
                             height: 120,
                             width: 120,
                             decoration: BoxDecoration(
+                              border: Border.all(
+                                width: borderWidth.toDouble(),
+                                color: borderColor,
+                                style: BorderStyle.solid,
+                              ),
                               color: AppColors.primaryColor,
                               borderRadius: BorderRadius.circular(10)
                             ),
                             child: Center(
                               child: GestureDetector(
                                 onTap: ()async{
+                                  setState(() {
+                                    borderWidth = 4;
+                                    borderColor = AppColors.primaryTextColor;
+                                  });
                                   log("lang fr");
                                   SharedPreferences prefs = await SharedPreferences.getInstance();
                                   lang = 1;

@@ -12,11 +12,9 @@ class _PartnerSignUpState extends State<PartnerSignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar("", context),
-      body: Column(
-        children: [
-          Center(child: Text("Inscription "))
-        ],
+      appBar: buildAppBar("Inscription", context),
+      body: Center(
+        child: Text("En cours de développement ")
       ),
     );
   }

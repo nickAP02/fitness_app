@@ -30,6 +30,8 @@ class _PlanPreferencesState extends State<PlanPreferences> {
       illustration: AppImages.planSample2
     ),
   ];
+  var borderColor = AppColors.primaryColor;
+  int borderWidth = 2;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,7 +69,9 @@ class _PlanPreferencesState extends State<PlanPreferences> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
-                          color: AppColors.primaryColor
+                          color: borderColor,
+                          width: borderWidth.toDouble(),
+                          style: BorderStyle.solid
                         ),
                         image: DecorationImage(
                           colorFilter: ColorFilter.mode(
@@ -90,14 +94,16 @@ class _PlanPreferencesState extends State<PlanPreferences> {
                     ),
                     ),
                     onTap: () async{
-                      objectif = planItem.category_id!;
-                      SharedPreferences prefs = await SharedPreferences.getInstance();
-                      prefs.setInt("goal", objectif);
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context)=> const UserPreference()
-                        )
-                      );
+                        borderWidth = 4;
+                        borderColor = AppColors.primaryTextColor;
+                        objectif = planItem.category_id!;
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                        prefs.setInt("goal", objectif);
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context)=> const UserPreference()
+                          )
+                        );
                     },
                   )
                 ).toList()
