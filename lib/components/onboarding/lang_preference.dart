@@ -3,6 +3,7 @@ import 'package:fitness_app/components/onboarding/plan_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../service/local_storage.dart';
 import '../../utils/colors.dart';
 
 class LangPreference extends StatefulWidget {
@@ -31,6 +32,7 @@ class _LangPreferenceState extends State<LangPreference> {
     telephone = prefs.getString('telephone')??"";
   }
   int borderWidth = 2;
+  final LocalStorage storage = LocalStorage();
   @override
   void initState() {
     // TODO: implement initState

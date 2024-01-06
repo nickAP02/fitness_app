@@ -1,15 +1,17 @@
 
-import 'package:fitness_app/components/auth/partner_signup.dart';
+import 'package:fitness_app/components/onboarding/preferences.dart';
+import 'package:fitness_app/components/partners/auth/partner_signup.dart';
 import 'package:fitness_app/components/onboarding/lang_preference.dart';
 import 'package:fitness_app/service/google_auth.dart';
+import 'package:fitness_app/utils/constant.dart';
 // import 'package:fitness_app/components/home/home.dart';
 // import 'package:fitness_app/components/home/profile.dart';
-import 'package:fitness_app/service/local_storage.dart';
 import 'package:fitness_app/utils/images.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../reusable/custom_button.dart';
+import '../../reusable/custom_button.dart';
+
+
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -61,36 +63,38 @@ class _SignUpState extends State<SignUp> {
                         child: Text(
                           "Inscription",
                           style: TextStyle(
-                            fontSize: 28,
+                            fontSize: AppConstants.fontSize_30,
                             color: Colors.white
                           ),
                         ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.only(top:78.0,left: 10),
-                        child: Text(
-                          "MyFitness",
-                          style: TextStyle(
-                            fontSize: 45,
-                            color: Colors.white
-                          ),
-                        ),
+                      Padding(
+                        padding: const EdgeInsets.only(top:58.0,left: 10,bottom: 50),
+                        child: Image.asset(AppImages.logo,height: 80,width: 80,),
                       ),
+                      // const Padding(
+                      //   padding: EdgeInsets.only(top:78.0,left: 10),
+                      //   child: Text(
+                      //     "MyFitness",
+                      //     style: TextStyle(
+                      //       fontSize: AppConstants.fontSize_45,
+                      //       color: Colors.white
+                      //     ),
+                      //   ),
+                      // ),
                       Center(
                         child:Column(
                           children: [
-                          Text("S'inscrire en tant que"),
+                          const Text("S'inscrire en tant que"),
                           Padding(
                             padding: const EdgeInsets.only(left:8.0,right: 10,),
                             child: CustomButton(
                               title:"Professionnel",
-                              onPressed: () async {
-                                SharedPreferences prefs = await SharedPreferences.getInstance();
-                                prefs.setInt("is_user", 1);
+                              onPressed: (){
                                 Navigator.push(
                                   context, 
                                   MaterialPageRoute(
-                                    builder: (context)=>PartnerSignUp()
+                                    builder: (context)=>const PartnerSignUp()
                                   )
                                 );
                               }
@@ -104,13 +108,11 @@ class _SignUpState extends State<SignUp> {
                             padding: const EdgeInsets.only(left:8.0,right: 10),
                             child: CustomButton(
                               title:"Utilisateur", 
-                              onPressed: ()async{
-                                SharedPreferences prefs = await SharedPreferences.getInstance();
-                                prefs.setInt("is_user", 0);
+                              onPressed: (){
                                 Navigator.push(
                                   context, 
                                   MaterialPageRoute(
-                                    builder: (context)=>LangPreference()
+                                    builder: (context)=>const UserPreference()
                                   )
                                 );
                               }

@@ -4,6 +4,7 @@ import '../../utils/colors.dart';
 import '../reusable/custom_appbar.dart';
 import '../reusable/header.dart';
 
+// ignore: must_be_immutable
 class DietDetails extends StatefulWidget {
   DietDetails({
     super.key,

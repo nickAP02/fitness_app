@@ -50,7 +50,7 @@ class SearchItemState extends State<SearchItem>{
           child: Text(
             widget.title,
             style: TextStyle(
-              color: widget.isSelected!?AppColors.primaryColor:AppColors.secondaryColor,
+              color: widget.isSelected?AppColors.primaryColor:AppColors.secondaryColor,
               fontSize: 12
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../utils/colors.dart';
 import '../reusable/custom_appbar.dart';
@@ -9,16 +10,12 @@ class GymCenterDetails extends StatefulWidget {
   String title;
   String desc;
   String localisation;
-  String longitude;
-  String latitude;
   String image;
   GymCenterDetails({
     super.key,
     required this.title,
     required this.desc,
     required this.localisation,
-    required this.longitude,
-    required this.latitude,
     required this.image
   });
 
@@ -28,14 +25,13 @@ class GymCenterDetails extends StatefulWidget {
 
 class _GymCenterDetailsState extends State<GymCenterDetails> {
   ScrollController? _scrollController;
-  openMap(double latitude, double longitude) async {
-    String googleUrl =
-        'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
-    // if (await canLaunch(googleUrl)) {
-    //   await launch(googleUrl);
-    // } else {
-    //   throw 'Impossible d\'ouvrir Google Maps';
-    // }
+  openMap(Uri url) async {
+    Uri googleUrl =
+        Uri.parse('https://www.google.com/maps/search/?api=1&query=${widget.localisation}');
+    if (await launchUrl(googleUrl))
+    {
+      throw Exception('Impossible d\'ouvrir Google Maps');
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -63,8 +59,7 @@ class _GymCenterDetailsState extends State<GymCenterDetails> {
                   ActionChip(
                     onPressed: () {
                       openMap(
-                        double.parse(widget.latitude),
-                        double.parse(widget.longitude),
+                        Uri.parse(widget.localisation)
                       );
                     },
                     avatar: const Icon(Icons.map_outlined),

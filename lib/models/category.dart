@@ -1,25 +1,25 @@
 //plan category with a goal in calory
 //weight loss or fitness
 class CategoryEntity {
-  int? category_id;
+  int? categoryId;
   String? description;
   String? illustration;
 
   CategoryEntity({
-    required this.category_id,
+    required this.categoryId,
     required this.description,
     required this.illustration 
   });
 
   factory CategoryEntity.fromJson(Map<String,dynamic>json){
     return CategoryEntity(
-      category_id: json["category_id"],
+      categoryId: json["category_id"],
       description: json['description'],
       illustration: json['illustration']
     );
   }
   Map<String,dynamic> toJson() =>{
-    'category_id':category_id,
+    'category_id':categoryId,
     'description':description,
     'illustration':illustration
   };

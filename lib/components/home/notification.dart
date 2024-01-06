@@ -1,3 +1,4 @@
+import 'package:fitness_app/service/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,6 +18,7 @@ class _NotificationPageState extends State<NotificationPage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     notif_count = prefs.getInt("notification_count")??0;
   }
+  ApiService apiService = ApiService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

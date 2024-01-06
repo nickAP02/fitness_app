@@ -3,20 +3,20 @@ import 'dart:convert';
 import 'category.dart';
 
 class ExerciseEntity {
-  int? exercise_id;
+  int? exerciseId;
   String? title;
   String? description;
   int? time;
   // int? plan_id;
-  CategoryEntity? plan_id;
+  CategoryEntity? planId;
   String? illustration;
 
   ExerciseEntity({
-    this.exercise_id,
+    this.exerciseId,
     this.title,
     this.description,
     this.time,
-    this.plan_id,
+    this.planId,
     this.illustration
   });
 
@@ -26,20 +26,20 @@ class ExerciseEntity {
 
   factory ExerciseEntity.fromJson(Map<String,dynamic>json){
     return ExerciseEntity(
-      exercise_id: json["exercise_id"],
+      exerciseId: json["exercise_id"],
       title: json["title"],
       description: json["description"],
       time: json["time"],
-      plan_id: CategoryEntity.fromJson(json["plan_id"]),
+      planId: CategoryEntity.fromJson(json["plan_id"]),
       illustration: json["illustration"]
     );
   }
   Map<String,dynamic> toJson()=>{
-    'exercise_id':exercise_id,
+    'exercise_id':exerciseId,
     'title':title,
     'description':description,
     'time':time,
-    'plan_id':plan_id,
+    'plan_id':planId,
     'illustration':illustration
   };
 }

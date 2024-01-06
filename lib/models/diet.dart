@@ -1,38 +1,38 @@
 import 'package:fitness_app/models/category.dart';
 
 class DietEntity {
-  int? diet_id;
+  int? dietId;
   String? title;
   String? description;
-  CategoryEntity? plan_id;
+  CategoryEntity? planId;
   double? calory;
   String? illustration;
 
   DietEntity({
-    this.diet_id,
+    this.dietId,
     this.title,
     this.description,
-    this.plan_id,
+    this.planId,
     this.calory,
     this.illustration
   });
 
   factory DietEntity.fromJson(Map<String,dynamic>json){
     return DietEntity(
-      diet_id: json["diet_id"],
+      dietId: json["diet_id"],
       title: json["title"],
       description: json["description"],
-      plan_id: CategoryEntity.fromJson(json["plan_id"]),
+      planId: CategoryEntity.fromJson(json["plan_id"]),
       calory: json["calory"],
       illustration: json["illustration"],
     );
   }
 
   Map<String, dynamic> toJson() =>{
-    'diet_id':diet_id,
+    'diet_id':dietId,
     'title':title,
     'description':description,
-    'plan_id':plan_id,
+    'plan_id':planId,
     'calory':calory,
     'illustration':illustration
   };

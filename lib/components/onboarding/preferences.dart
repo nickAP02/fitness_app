@@ -1,8 +1,9 @@
 import 'package:fitness_app/utils/colors.dart';
+import 'package:fitness_app/utils/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../auth/login_page.dart';
+import '../../service/local_storage.dart';
+import '../auth/view/login_page.dart';
 import '../reusable/custom_button.dart';
 
 class UserPreference extends StatefulWidget {
@@ -34,9 +35,11 @@ class _UserPreferenceState extends State<UserPreference> {
   String taille="";
   String sexe="";
   double poids=0;
-  bool isChecked=true;
+  bool isMaleChecked=true;
+  bool isFemaleChecked=true;
   final formKey = GlobalKey<FormState>();
   TextEditingController textController = TextEditingController();
+  final LocalStorage storage = LocalStorage();
   @override
   Widget build(BuildContext context) {
     double hauteur = MediaQuery.of(context).size.height;
@@ -44,76 +47,95 @@ class _UserPreferenceState extends State<UserPreference> {
     return Scaffold(
       body: SingleChildScrollView(
         child:SizedBox(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+          height: hauteur,
+          width: largeur,
           child: Form(
             key: formKey,
             child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Padding(
-                padding: EdgeInsets.only(left:15.0,),
+                padding: EdgeInsets.only(left:AppConstants.padding_15,bottom: AppConstants.padding_50),
                 child: Text(
                   "Informations personnelles",
                   style: TextStyle(
-                      fontSize: 40,
+                      fontSize: AppConstants.fontSize_30,
                       color: Colors.white
                   )
                 ),
               ),
-              const SizedBox(height: 50,),
+              const SizedBox(height: AppConstants.padding_50,),
               const Text("Quelle est votre taille ?",
               style: TextStyle(
-                  fontSize: 20,
+                  fontSize: AppConstants.fontSize_20,
                   color: Colors.white
                 )
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(height: AppConstants.padding_20,),
               DropdownMenu(
                 width: largeur,
                 onSelected: (taille){
                   print("taille $taille");
                 },
-                textStyle: const TextStyle(
-                  fontSize: 20,
-                  color: AppColors.primaryTextColor
-                ),
+                // textStyle: const TextStyle(
+                //   fontSize: 20,
+                //   color: AppColors.primaryTextColor
+                // ),
                 menuStyle: MenuStyle(
                   backgroundColor: MaterialStateProperty.all(AppColors.primaryColor),
                 ),
-                dropdownMenuEntries: tailles.map((item) => DropdownMenuEntry(label:item,value: item)).toList()
+                dropdownMenuEntries: tailles.map(
+                  (item) => 
+                  DropdownMenuEntry(
+                    label:item,
+                    value: item,
+                    style: ButtonStyle(
+                      textStyle: MaterialStateProperty.all(TextStyle(
+                        fontSize: AppConstants.fontSize_10
+                      ))
+                    )
+                  )
+                ).toList()
               ),
               const Text(
                 "Quel est votre poids ?",
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: AppConstants.fontSize_20,
                   color: Colors.white
                 )
               ),
-              const SizedBox(height: 20,),
-              Container(
+              const SizedBox(height: AppConstants.padding_20,),
+              SizedBox(
                 // height: hauteur*0.2,
                 width: largeur,
-                child: TextField(
+                child: TextFormField(
                   keyboardType: const TextInputType.numberWithOptions(),
                   controller: textController,
+                  validator: (value) {
+                    if(value!.isNotEmpty){
+                      return value;
+                    }
+                    return "Champ vide";
+                  },
                   onChanged: (value) {
-                    // value = textController.text;
+                    value = textController.text;
                     print("value $value");
-                    poids = value as double;
+                    if(value.isNotEmpty){
+                      poids = double.parse(value);
+                    }
                   },
                 ),
               ),
               const Text(
                 "Quel est votre sexe ?",
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: AppConstants.fontSize_20,
                   color: Colors.white
                 )
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(height: AppConstants.padding_20,),
               Padding(
-                padding: const EdgeInsets.only(left:10.0),
+                padding: const EdgeInsets.only(left:AppConstants.padding_10),
                 child: Row(
                   children: [
                     Row(
@@ -121,24 +143,18 @@ class _UserPreferenceState extends State<UserPreference> {
                         const Text(
                           "F",
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: AppConstants.fontSize_20,
                             color: Colors.white
                           )
                         ),
                         Radio(
-                          groupValue: isChecked,
-                          value: isChecked, 
+                          groupValue: !isFemaleChecked,
+                          value: !isFemaleChecked, 
                           onChanged: (value){
                             setState(() {
-                              isChecked = value!;
-                              print("val $value");
-                              print("checked $isChecked");
-                              if(isChecked==true){
-                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                   backgroundColor: Colors.red,
-                                  content: Text("Checked"))
-                                  );
-                              }
+                              isFemaleChecked = value!;
+                              print("val $isFemaleChecked");
+                              isFemaleChecked?!isFemaleChecked:isFemaleChecked;
                             });
                           }
                         ),
@@ -149,23 +165,18 @@ class _UserPreferenceState extends State<UserPreference> {
                         const Text(
                           "M",
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: AppConstants.fontSize_20,
                             color: Colors.white
                           )
                         ),
                         Radio(
-                          groupValue: isChecked,
-                          value: isChecked, 
+                          groupValue: !isMaleChecked,
+                          value: !isMaleChecked, 
                           onChanged: (value){
                             setState(() {
-                              isChecked = value!;
-                              print("val $value");
-                              print("checked $isChecked");
-                              if(isChecked==true){
-                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                   backgroundColor: Colors.red,
-                                  content: Text("Checked")));
-                              }
+                              isMaleChecked = value!;
+                              print("val $isMaleChecked");
+                              isMaleChecked?!isMaleChecked:isMaleChecked;
                             });
                           }
                         ),
@@ -174,14 +185,14 @@ class _UserPreferenceState extends State<UserPreference> {
                   ],
                 ),
               ),
-              CustomButton(title:"Suivant",onPressed: ()async{
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                prefs.setString("height", taille);
-                prefs.setDouble("weight", poids);
-                prefs.setString("sex", sexe);
+              CustomButton(title:"Suivant",
+              onPressed: (){
+                storage.saveHeight(taille);
+                storage.saveWeight(poids);
+                storage.saveUserSex(sexe);
                 setState(() {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                       backgroundColor: Colors.red,
                       content: Text(
                         "Compte crée avec succès",
@@ -192,7 +203,7 @@ class _UserPreferenceState extends State<UserPreference> {
                   Navigator.push(
                     context, 
                     MaterialPageRoute(
-                      builder: (context)=>Login()
+                      builder: (context)=>const Login()
                     )
                   );
                   

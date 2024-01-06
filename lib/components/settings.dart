@@ -1,4 +1,5 @@
-import 'package:fitness_app/components/membership_card.dart';
+import 'package:fitness_app/components/home/profile.dart';
+import 'package:fitness_app/components/reusable/bottom_navbar.dart';
 import 'package:fitness_app/components/reusable/custom_appbar.dart';
 import 'package:fitness_app/components/user_params.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,20 @@ class _SettingsState extends State<Settings> {
             onTap: (){
               Navigator.of(context).push(
                 MaterialPageRoute(
+                  builder: (context)=> const Profile()
+                ),
+              );
+            },
+            leading: const Icon(
+              Icons.manage_accounts,
+              color: AppColors.secondaryColor,
+            ),
+            title: const Text("Mon compte"),
+          ),
+          ListTile(
+            onTap: (){
+              Navigator.of(context).push(
+                MaterialPageRoute(
                   builder: (context)=> const UserParams()
                 ),
               );
@@ -33,35 +48,35 @@ class _SettingsState extends State<Settings> {
             ),
             title: const Text("Informations personnelles"),
           ),
-          ListTile(
-            onTap: ()=>{
-              // Navigator.of(context).push(
-              //   MaterialPageRoute(
-              //     builder: (context)=> const MembershipCard()
-              //   ),
-              // ),
-            },
-            leading: const Icon(
-              Icons.card_membership,
-              color: AppColors.secondaryColor,
-            ),
-            title: const Text("Carte de membre MyFit"),
-          ),
-          const Divider(color: AppColors.secondaryColor,thickness: 1.5,),
-          const ListTile(
-            leading: Icon(
-              Icons.location_on,
-              color: AppColors.secondaryColor,
-            ),
-            title: Text("Centres sportifs visités"),
-          ),
+          // ListTile(
+          //   onTap: ()=>{
+          //     // Navigator.of(context).push(
+          //     //   MaterialPageRoute(
+          //     //     builder: (context)=> const MembershipCard()
+          //     //   ),
+          //     // ),
+          //   },
+          //   leading: const Icon(
+          //     Icons.card_membership,
+          //     color: AppColors.secondaryColor,
+          //   ),
+          //   title: const Text("Carte de membre MyFit"),
+          // ),
           const ListTile(
             leading: Icon(
               Icons.track_changes_rounded,
               color: AppColors.secondaryColor,
             ),
-            title: Text("Objectifs atteints"),
+            title: Text("Objectifs"),
           ),
+          // const Divider(color: AppColors.secondaryColor,thickness: 1.5,),
+          // const ListTile(
+          //   leading: Icon(
+          //     Icons.location_on,
+          //     color: AppColors.secondaryColor,
+          //   ),
+          //   title: Text("Centres sportifs visités"),
+          // ),
           const Divider(color: AppColors.secondaryColor,thickness: 1.5,),
           const ListTile(
             leading: Icon(
@@ -70,8 +85,24 @@ class _SettingsState extends State<Settings> {
             ),
             title: Text("Statistiques"),
           ),
+          const ListTile(
+            leading: Icon(
+              Icons.menu_book,
+              color: AppColors.secondaryColor,
+            ),
+            title: Text("Termes et conditions d'utilisation"),
+          ),
+          const Divider(color: AppColors.secondaryColor,thickness: 1.5,),
+          const ListTile(
+            leading: Icon(
+              Icons.info,
+              color: AppColors.secondaryColor,
+            ),
+            title: Text("A propos"),
+          ),
         ],
       ),
+      bottomNavigationBar: BottomNavBar(isUser: true),
     );
   }
 }

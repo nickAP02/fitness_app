@@ -203,7 +203,7 @@ class _ProfileState extends State<Profile> {
       :const Center(
         child: CircularProgressIndicator(color: AppColors.primaryColor,)
       ),
-      bottomNavigationBar: BottomNavBar(),
+      bottomNavigationBar: BottomNavBar(isUser: true,),
     );
   }
 }

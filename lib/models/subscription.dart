@@ -1,11 +1,11 @@
 class SubscriptionEntity {
-  int? subscription_id;
+  int? subscriptionId;
   String? name;
   double? price;
   int? duration;
 
   SubscriptionEntity({
-    this.subscription_id,
+    this.subscriptionId,
     this.name,
     this.price,
     this.duration
@@ -13,14 +13,14 @@ class SubscriptionEntity {
 
   factory SubscriptionEntity.fromJson(Map<String,dynamic>json){
     return SubscriptionEntity(
-      subscription_id: json["subscription_id"],
+      subscriptionId: json["subscription_id"],
       name: json["name"],
       price: json["price"],
       duration: json["duration"]
     );
   }
   Map<String,dynamic> toJson()=>{
-    'subscription_id':subscription_id,
+    'subscription_id':subscriptionId,
     'name':name,
     'price':price,
     'duration':duration

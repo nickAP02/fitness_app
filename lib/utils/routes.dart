@@ -1,15 +1,12 @@
-import 'package:fitness_app/components/auth/login_page.dart';
+import 'package:fitness_app/components/auth/view/signup_page.dart';
 import 'package:fitness_app/components/home/profile.dart';
 import 'package:fitness_app/components/home/search_page.dart';
 import 'package:fitness_app/components/settings.dart';
 import 'package:flutter/material.dart';
 
-import '../components/auth/signup_page.dart';
 import '../components/home/home.dart';
 import '../components/home/notification.dart';
-import '../components/onboarding/lang_preference.dart';
-import '../components/onboarding/plan_preference.dart';
-import '../components/onboarding/preferences.dart';
+import '../components/onboarding/steps.dart';
 // import '../components/onboarding/splash.dart';
 
 class AppPages {
@@ -19,41 +16,41 @@ class AppPages {
       //   route: AppRoutes.INITIAL,
       //   page: const Splash(),
       // ),
-      PageEntity(
-        route: AppRoutes.SIGN_UP,
-        page: const SignUp(),
-        // bloc: BlocProvider(
-        //   create: (_) => SignInBloc(),
-        // ),
-      ),
-      PageEntity(
-        route: AppRoutes.LANG,
-        page: const LangPreference(),
-        // bloc: BlocProvider(
-        //   create: (_) => WelcomeBloc(),
-        // ),
-      ),
-      PageEntity(
-        route: AppRoutes.PLAN_PREF,
-        page: const PlanPreferences(),
-        // bloc: BlocProvider(
-        //   create: (_) => WelcomeBloc(),
-        // ),
-      ),
-      PageEntity(
-        route: AppRoutes.USER_PREF,
-        page: const UserPreference(),
-        // bloc: BlocProvider(
-        //   create: (_) => WelcomeBloc(),
-        // ),
-      ),
-      PageEntity(
-        route: AppRoutes.LOGIN,
-        page: const Login(),
-        // bloc: BlocProvider(
-        //   create: (_) => RegisterBlocs(),
-        // ),
-      ),
+      // PageEntity(
+      //   route: AppRoutes.SIGN_UP,
+      //   page: const SignUp(),
+      //   // bloc: BlocProvider(
+      //   //   create: (_) => SignInBloc(),
+      //   // ),
+      // ),
+      // PageEntity(
+      //   route: AppRoutes.LANG,
+      //   page: const LangPreference(),
+      //   // bloc: BlocProvider(
+      //   //   create: (_) => WelcomeBloc(),
+      //   // ),
+      // ),
+      // PageEntity(
+      //   route: AppRoutes.PLAN_PREF,
+      //   page: const PlanPreferences(),
+      //   // bloc: BlocProvider(
+      //   //   create: (_) => WelcomeBloc(),
+      //   // ),
+      // ),
+      // PageEntity(
+      //   route: AppRoutes.USER_PREF,
+      //   page: const UserPreference(),
+      //   // bloc: BlocProvider(
+      //   //   create: (_) => WelcomeBloc(),
+      //   // ),
+      // ),
+      // PageEntity(
+      //   route: AppRoutes.LOGIN,
+      //   page: const Login(),
+      //   // bloc: BlocProvider(
+      //   //   create: (_) => RegisterBlocs(),
+      //   // ),
+      // ),
       PageEntity(
         route: AppRoutes.HOME,
         page: const Home(),
@@ -105,7 +102,7 @@ class AppPages {
       ),
       PageEntity(
         route: AppRoutes.SEARCH,
-        page: Search(),
+        page: const Search(),
         // bloc: BlocProvider(
         //   create: (_) => AppBlocs(),
         // ),

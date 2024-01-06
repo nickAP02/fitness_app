@@ -1,5 +1,5 @@
 import 'package:fitness_app/components/plans/plan_card.dart';
-import 'package:fitness_app/utils/images.dart';
+import 'package:fitness_app/utils/constant.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/category.dart';
@@ -22,11 +22,14 @@ class Plans extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Padding(
-                padding: EdgeInsets.only(left:15.0,top: 40,bottom: 20),
+                padding: EdgeInsets.only(
+                  left:AppConstants.padding_15,
+                  top: AppConstants.padding_40,
+                  bottom: AppConstants.padding_20),
                 child: Text(
                   "Débuter un plan aujourd'hui",
                   style: TextStyle(
-                    fontSize: 40,
+                    fontSize: AppConstants.fontSize_40,
                     color: Colors.white
                   ),
                 ),

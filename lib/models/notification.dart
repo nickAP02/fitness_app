@@ -1,25 +1,25 @@
 class NotificationEntity {
-  int? notification_id;
+  int? notificationId;
   String? title;
   String? content;
   DateTime? date;
-  bool? is_marked;
+  bool? isMarked;
 
   NotificationEntity({
-    this.notification_id,
+    this.notificationId,
     this.title,
     this.content,
     this.date,
-    this.is_marked,
+    this.isMarked,
   });
 
   factory NotificationEntity.fromJson(Map<String, dynamic> json){
     return NotificationEntity(
-      notification_id: json["notification_id"],
+      notificationId: json["notification_id"],
       title: json["title"],
       content: json["content"],
       date: json["date"],
-      is_marked: json["is_marked"],
+      isMarked: json["is_marked"],
     );
   }
 

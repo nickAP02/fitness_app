@@ -9,4 +9,5 @@ class AppImages{
   static const String planSample1= "${AppConstants.ASSET_URL}plan-1.jpg";
   static const String planSample2= "${AppConstants.ASSET_URL}plan-2.jpg";
   static const String googleIcon= "${AppConstants.ASSET_URL}google.png";
+  static const String logo= "${AppConstants.ASSET_URL}myfitness-logo.png";
 }

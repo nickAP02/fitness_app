@@ -61,7 +61,7 @@ class Plan extends StatelessWidget {
               Text(
                 plan.description!
               ),
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
               Text("${exercices.length} exercices"),
             ],
           ),

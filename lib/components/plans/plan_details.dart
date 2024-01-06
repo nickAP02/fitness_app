@@ -30,7 +30,7 @@ class _PlanDetailsState extends State<PlanDetails> {
   void initState() {
     void getPlanData(){
       widget.diets.forEach((diet) {
-        if(widget.plan.category_id==diet.plan_id!.category_id){
+        if(widget.plan.categoryId==diet.planId!.categoryId){
           dietWidgets.add(
             Diet(
               data: diet,
@@ -39,7 +39,7 @@ class _PlanDetailsState extends State<PlanDetails> {
         }
       });
       widget.exercises.forEach((exercise) {
-        if(widget.plan.category_id==exercise.plan_id!.category_id!){
+        if(widget.plan.categoryId==exercise.planId!.categoryId!){
           exerciseWidgets.add(
             Exercice(
               exercise: exercise,

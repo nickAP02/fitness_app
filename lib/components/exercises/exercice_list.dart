@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'exercise_card.dart';
 import 'exercise_details.dart';
 
+// ignore: must_be_immutable
 class Exercices extends StatefulWidget {
   List<ExerciseEntity> data;
   Exercices({
@@ -33,7 +34,7 @@ class _ExercicesState extends State<Exercices> {
                     title: widget.data[index].title!,
                     description: widget.data[index].description!,
                     time: widget.data[index].time,
-                    category: widget.data[index].plan_id!.description!,
+                    category: widget.data[index].planId!.description!,
                     image: widget.data[index].illustration!,
                   )
                 ),

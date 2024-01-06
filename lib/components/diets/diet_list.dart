@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../models/diet.dart';
 
+// ignore: must_be_immutable
 class Diets extends StatefulWidget {
   List<DietEntity> data;
   Diets({

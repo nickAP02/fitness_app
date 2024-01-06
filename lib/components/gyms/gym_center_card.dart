@@ -1,3 +1,4 @@
+import 'package:fitness_app/utils/constant.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/colors.dart';
@@ -8,16 +9,12 @@ class GymCenter extends StatelessWidget {
   String title;
   String description;
   String localisation;
-  String longitude;
-  String latitude;
   String image;
   GymCenter({
     super.key,
     required this.title,
     required this.description,
     required this.localisation,
-    required this.longitude,
-    required this.latitude,
     required this.image
   });
 
@@ -31,19 +28,19 @@ class GymCenter extends StatelessWidget {
                 title: title,
                 desc: description,
                 localisation: localisation,
-                longitude:longitude ,
-                latitude: latitude,
                 image: image,
               )
             ),
           );
       },
       child: Container(
-        margin: const EdgeInsets.only(left: 10,right: 5),
+        margin: const EdgeInsets.only(
+          left: AppConstants.padding_10,
+          right: AppConstants.padding_5),
         height: 180,
         width: 350,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(AppConstants.padding_25),
           border: Border.all(
             color: AppColors.primaryColor
           ),
@@ -60,7 +57,7 @@ class GymCenter extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(AppConstants.padding_10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -68,7 +65,7 @@ class GymCenter extends StatelessWidget {
                 title,
                 textAlign: TextAlign.left,
                 style: const TextStyle(
-                  fontSize: 18,
+                  fontSize: AppConstants.fontSize_20,
                   fontWeight: FontWeight.bold
                 ),
               ),
@@ -76,7 +73,7 @@ class GymCenter extends StatelessWidget {
                 description,
                 textAlign: TextAlign.left,
                 style: const TextStyle(
-                  fontSize: 15,
+                  fontSize: AppConstants.fontSize_15,
                   fontWeight: FontWeight.bold
                 ),
               ),
@@ -84,7 +81,7 @@ class GymCenter extends StatelessWidget {
                 localisation,
                 textAlign: TextAlign.left,
                 style: const TextStyle(
-                  fontSize: 15,
+                  fontSize: AppConstants.fontSize_15,
                   fontWeight: FontWeight.bold
                 ),
               )

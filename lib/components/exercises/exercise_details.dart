@@ -1,5 +1,3 @@
-import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
@@ -99,7 +97,7 @@ class ExerciseDetailState extends State<ExerciseDetail> {
             ),
           ],
         ),
-      bottomNavigationBar: BottomNavBar()
+      bottomNavigationBar: BottomNavBar(isUser: true,)
     );
   }
 }

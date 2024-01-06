@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:fitness_app/utils/constant.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/colors.dart';
@@ -95,7 +96,7 @@ class ExerciseStartupState extends State<ExerciseStartup> {
                         child: Text(
                           "Sprint rapide",
                           style: TextStyle(
-                            fontSize: 10,
+                            fontSize: AppConstants.fontSize_10,
                             color: AppColors.primaryColor
                           )
                         ),
@@ -107,7 +108,7 @@ class ExerciseStartupState extends State<ExerciseStartup> {
                           widget.category,
                           style: const TextStyle(
                             // backgroundColor: primaryColor,
-                            fontSize: 10,
+                            fontSize: AppConstants.fontSize_10,
                             color: Colors.white
                           ),
                       ),
@@ -173,7 +174,7 @@ class ExerciseStartupState extends State<ExerciseStartup> {
                                   '${widget.time.toString().padLeft(2,'0')}:${sec.toString().padLeft(2,'0')}',
                                   style: const TextStyle(
                                     // backgroundColor: primaryColor,
-                                    fontSize: 80,
+                                    fontSize: AppConstants.fontSize_80,
                                     color: AppColors.primaryColor
                                   ),
                                 ),
@@ -190,7 +191,7 @@ class ExerciseStartupState extends State<ExerciseStartup> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavBar()
+      bottomNavigationBar: BottomNavBar(isUser: true,)
     );
   }
   @override

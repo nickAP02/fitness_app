@@ -1,13 +1,12 @@
-import 'dart:developer';
 
 import 'package:fitness_app/components/onboarding/preferences.dart';
 import 'package:fitness_app/models/category.dart';
+import 'package:fitness_app/utils/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import '../../service/local_storage.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/images.dart';
-import '../plans/plan_card.dart';
 
 class PlanPreferences extends StatefulWidget {
   const PlanPreferences({super.key});
@@ -20,18 +19,19 @@ class _PlanPreferencesState extends State<PlanPreferences> {
   int objectif=0;
   var planEntities = [
     CategoryEntity(
-      category_id: 1,
+      categoryId: 1,
       description:"Maintien du corps",
       illustration: AppImages.planSample1
     ),
     CategoryEntity(
-      category_id: 2,
+      categoryId: 2,
       description:"Perte de poids",
       illustration: AppImages.planSample2
     ),
   ];
   var borderColor = AppColors.primaryColor;
   int borderWidth = 2;
+  final LocalStorage storage = LocalStorage();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,16 +43,16 @@ class _PlanPreferencesState extends State<PlanPreferences> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Padding(
-                padding: EdgeInsets.only(left:15.0,),
+                padding: EdgeInsets.only(left:AppConstants.padding_15,),
                 child: Text(
                   "Débuter un plan aujourd'hui",
                   style: TextStyle(
-                    fontSize: 40,
+                    fontSize: AppConstants.fontSize_40,
                     color: Colors.white
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               Row(
@@ -85,7 +85,7 @@ class _PlanPreferencesState extends State<PlanPreferences> {
                         ),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(45.0),
+                        padding: const EdgeInsets.all(AppConstants.padding_45),
                         child:Text(
                               planItem.description!
                         ),
@@ -93,12 +93,11 @@ class _PlanPreferencesState extends State<PlanPreferences> {
                       ),
                     ),
                     ),
-                    onTap: () async{
+                    onTap: (){
                         borderWidth = 4;
                         borderColor = AppColors.primaryTextColor;
-                        objectif = planItem.category_id!;
-                        SharedPreferences prefs = await SharedPreferences.getInstance();
-                        prefs.setInt("goal", objectif);
+                        objectif = planItem.categoryId!;
+                        storage.saveGoal(objectif);
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context)=> const UserPreference()

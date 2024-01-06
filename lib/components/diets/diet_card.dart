@@ -1,4 +1,5 @@
 import 'package:fitness_app/components/diets/diet_details.dart';
+import 'package:fitness_app/utils/constant.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/diet.dart';
@@ -21,7 +22,7 @@ class Diet extends StatelessWidget {
               title: data.title!,
               description: data.description!,
               calory: data.calory!,
-              category: data.plan_id!.description!,
+              category: data.planId!.description!,
               image: data.illustration!,
             )
           ),
@@ -64,10 +65,10 @@ class Diet extends StatelessWidget {
                     width: 60,
                     child: Center(
                       child: Text(
-                        data.plan_id!.description!.toString(),
+                        data.planId!.description!.toString(),
                         style: const TextStyle(
                           backgroundColor: AppColors.primaryColor,
-                          fontSize: 6,
+                          fontSize: AppConstants.fontSize_5,
                           color: Colors.white
                         ),
                       ),
@@ -79,7 +80,7 @@ class Diet extends StatelessWidget {
                   child: Text(
                     data.title!,
                     style: const TextStyle(
-                      fontSize: 10,
+                      fontSize: AppConstants.fontSize_10,
                       color: AppColors.primaryColor
                     )
                   ),
@@ -89,7 +90,7 @@ class Diet extends StatelessWidget {
                   child: Text(
                     '${data.calory} kCal',
                     style: const TextStyle(
-                      fontSize: 10,
+                      fontSize: AppConstants.fontSize_10,
                       color: AppColors.primaryColor
                     ),
                   ),

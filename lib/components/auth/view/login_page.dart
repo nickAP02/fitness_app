@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fitness_app/components/auth/signup_page.dart';
+import 'package:fitness_app/components/auth/view/signup_page.dart';
 import 'package:fitness_app/service/google_auth.dart';
 import 'package:fitness_app/service/local_storage.dart';
 import 'package:fitness_app/utils/images.dart';
@@ -12,7 +12,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
-import '../home/home.dart';
+import '../../../utils/constant.dart';
+import '../../home/home.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}):super(key: key);
@@ -29,29 +30,7 @@ class _LoginState extends State<Login> {
   final LocalStorage storage = LocalStorage();
   GoogleAuth googleAuth = GoogleAuth();
   Future<DocumentSnapshot<Map<String, dynamic>>> documents = FirebaseFirestore.instance.collection("users").doc().get();
-  
-  // List getUserData(){
-  //   List elements = [];
-  //   documents.then(
-  //     (value) =>{
-  //       value.data()!.forEach((key, valeur) {
-  //         elements.add(valeur);
-  //       })
-  //     }
-  //   );
-  //   return elements;
-  
-    // if(value.email==""){
-    //   storage.saveUser(value);
-    // }
-    // else{
-    //   Navigator.of(context).push(
-    //     MaterialPageRoute(
-    //       builder: (context)=> const Home()
-    //     ),
-    //   );
-    // }
-  // }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -101,7 +80,7 @@ class _LoginState extends State<Login> {
                         child: Text(
                           "De retour parmi la communauté des MyFiteurs !",
                           style: TextStyle(
-                            fontSize: 28,
+                            fontSize: AppConstants.fontSize_30,
                             color: Colors.white
                           ),
                         ),
@@ -111,7 +90,7 @@ class _LoginState extends State<Login> {
                         child: Text(
                           "MyFitness",
                           style: TextStyle(
-                            fontSize: 45,
+                            fontSize: AppConstants.fontSize_45,
                             color: Colors.white
                           ),
                         ),
@@ -154,7 +133,7 @@ class _LoginState extends State<Login> {
                             child: Text(
                                 "Trouvez les meilleurs coachs personnels ou centre sportifs les plus proches de chez vous💪.",
                                 style: TextStyle(
-                                  fontSize: 17,
+                                  fontSize: AppConstants.fontSize_20,
                                   color: Colors.white
                                 ),
                             ),
@@ -165,7 +144,7 @@ class _LoginState extends State<Login> {
                               child: Text(
                                 "Connectez-vous avec d'autres passionnés comme vous.",
                                 style: TextStyle(
-                                  fontSize: 17,
+                                  fontSize: AppConstants.fontSize_20,
                                   color: Colors.white
                                 ),
                               ),
@@ -176,7 +155,7 @@ class _LoginState extends State<Login> {
                             child: Text(
                               "Surtout atteignez vos objectifs🔥.",
                                 style: TextStyle(
-                                  fontSize: 17,
+                                  fontSize: AppConstants.fontSize_20,
                                   color: Colors.white
                                 ),
                             ),
@@ -200,7 +179,7 @@ class _LoginState extends State<Login> {
                               googleAuth.loginWithGoogle(context: context).then(
                                 (value) => {
                                   log("login cred $value"),
-                                  storage.saveUser(value)
+                                  storage.saveEmail(value)
                                   }
                               ),
                               Navigator.of(context).push(
@@ -208,22 +187,6 @@ class _LoginState extends State<Login> {
                                   builder: (context)=> const Home()
                                 ),
                               )
-                              
-                              // googleAuth.signInWithGoogle().then(
-                              //   (value) => {
-                              //     log("user $value"),
-                              //     log("docs $documents"),
-                              //     // for(var i=0;i<documents.entries.length;i++){}
-                              //     value as UserModel,
-                              //       if(value.email==""){
-                              //         storage.saveUser(value),
-                              //         Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.HOME, (route) => false)
-                              //       }
-                              //       else{
-                              //         print("login else ")
-                              //       }
-                              //     }
-                              // ),
                             }, 
                             icon: Image.asset(
                               AppImages.googleIcon,
@@ -239,29 +202,6 @@ class _LoginState extends State<Login> {
                         left: 30
                         )
                       ),
-                      // Padding(
-                      //   padding: const EdgeInsets.only(left:8.0,right: 10),
-                      //   child: ElevatedButton.icon(
-                      //     style: ButtonStyle(
-                      //       overlayColor: MaterialStateProperty.all(Colors.white),
-                      //       shadowColor:  MaterialStateProperty.all(Colors.white),
-                      //       shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                      //     ),
-                      //     label: const Text("Connexion avec Instagram"),
-                      //      onPressed: ()=>{
-                      //       log("instagram login"),
-                      //       Navigator.of(context).push(
-                      //         MaterialPageRoute(
-                      //           builder: (context)=> const Preference()
-                      //         ),
-                      //       ),
-                      //     }, 
-                      //     icon: Image.asset(
-                      //       '${assetUrl}instagram.png',
-                      //       height: 20,
-                      //     ),
-                      //   ),
-                      // ),
                       Padding(
                         padding: const EdgeInsets.all(25.0),
                         child: GestureDetector(
@@ -278,14 +218,14 @@ class _LoginState extends State<Login> {
                               Text(
                                 "Pas de compte ? ",
                                 style: TextStyle(
-                                  fontSize: 15,
+                                  fontSize: AppConstants.fontSize_15,
                                   color: Colors.white
                                 ),
                               ),
                               Text(
                                 "S'inscrire",
                                 style: TextStyle(
-                                  fontSize: 23,
+                                  fontSize: AppConstants.fontSize_25,
                                   color: Colors.white
                                 ),
                               ),

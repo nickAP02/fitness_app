@@ -1,5 +1,6 @@
 
 import 'package:fitness_app/components/exercises/exercise_details.dart';
+import 'package:fitness_app/utils/constant.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/exercise.dart';
@@ -22,7 +23,7 @@ class Exercice extends StatelessWidget {
               title: exercise.title!,
               description: exercise.description!,
               time: exercise.time,
-              category: exercise.plan_id!.description!,
+              category: exercise.planId!.description!,
               image: exercise.illustration!,
             )
           ),
@@ -65,10 +66,10 @@ class Exercice extends StatelessWidget {
                     width: 60,
                     child: Center(
                       child: Text(
-                        exercise.plan_id!.description!,
+                        exercise.planId!.description!,
                         style: const TextStyle(
                           // backgroundColor: primaryColor,
-                          fontSize: 6,
+                          fontSize: AppConstants.fontSize_5,
                           color: Colors.white
                         ),
                       ),
@@ -80,7 +81,7 @@ class Exercice extends StatelessWidget {
                   child: Text(
                     exercise.description!,
                     style: const TextStyle(
-                      fontSize: 10,
+                      fontSize: AppConstants.fontSize_10,
                       color: AppColors.primaryColor
                     ),
                   ),
@@ -90,7 +91,7 @@ class Exercice extends StatelessWidget {
                   child: Text(
                     '${exercise.time} min',
                     style: const TextStyle(
-                      fontSize: 10,
+                      fontSize: AppConstants.fontSize_10,
                       color: AppColors.primaryColor
                     ),
                   ),
