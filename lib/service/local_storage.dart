@@ -57,6 +57,11 @@ class LocalStorage {
     prefs  = await SharedPreferences.getInstance();
     prefs.setInt('goal', workout);//user workout category id 
   }
+  //saves user appointments
+  saveAgenda(agenda) async{
+    prefs  = await SharedPreferences.getInstance();
+    prefs.setInt('agenda', agenda);//user appointments
+  }
   // updates selected user data
   updateUser(userData) async{
     prefs.setString('user_id', userData["id"].toString());
@@ -65,7 +70,8 @@ class LocalStorage {
     prefs.setString('lang', userData["lang"].toString());
     prefs.setString('height', userData["height"].toString());
     prefs.setString('weight', userData["weight"].toString());
-    
+    prefs.setString('goal', userData["goal"].toString());
+    prefs.setString('agenda', userData["agenda"].toString());
   }
 
 }

@@ -1,15 +1,16 @@
-import 'package:fitness_app/components/home/home.dart';
-import 'package:fitness_app/components/partners/home/home_partner.dart';
-import 'package:fitness_app/components/partners/home/settings.dart';
-import 'package:fitness_app/components/partners/subscription/subscription.dart';
-import 'package:fitness_app/components/workouts/workouts.dart';
+import 'package:fitness_app/features/home/home.dart';
+import 'package:fitness_app/features/home/home_partner.dart';
+import 'package:fitness_app/features/home/settings.dart';
+import 'package:fitness_app/features/subscription/presentation/subscription.dart';
+import 'package:fitness_app/features/workout/workouts.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/app_theme.dart';
 import '../../utils/colors.dart';
-import '../home/profile.dart';
 import '../settings.dart';
 
+// ignore: must_be_immutable
 class BottomNavBar extends StatelessWidget {
   bool isUser = true;
   int currentIndex = 0;
@@ -20,40 +21,39 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color newColor=const Color.fromARGB(255, 255, 255, 255);
     List<Widget> userNavItems = [
         buildNavBarItem(
           "Accueil",
           (){
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context)=>Home()
+                builder: (context)=>const Home()
               )
             );
           },
-          Icon(Icons.home_outlined,color: AppColors.secondaryColor,)
+          const Icon(Icons.home_outlined,color: AppColors.secondaryColor,)
         ),
         buildNavBarItem(
           "Entraînement",
           (){
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context)=>Workouts()
+                builder: (context)=>const Workouts()
               )
             );
           },
-          Icon(Icons.fitness_center_outlined,color: AppColors.secondaryColor,)
+          const Icon(Icons.fitness_center_outlined,color: AppColors.secondaryColor,)
         ),
         buildNavBarItem(
           "Paramètres",
           (){
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context)=>Settings()
+                builder: (context)=>const Settings()
               )
             );
           },
-          Icon(Icons.settings_outlined,color: AppColors.secondaryColor,)
+          const Icon(Icons.settings_outlined,color: AppColors.secondaryColor,)
         ),
       ];
     List<Widget> partnersNavItems = [
@@ -62,33 +62,44 @@ class BottomNavBar extends StatelessWidget {
           (){
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context)=>HomePartner()
+                builder: (context)=>const HomePartner()
               )
             );
           },
-          Icon(Icons.home_outlined,color: AppColors.secondaryColor,)
+          const Icon(Icons.home_outlined,color: AppColors.secondaryColor,)
+        ),
+        buildNavBarItem(
+          "Agenda",
+          (){
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context)=>const Subscription()
+              )
+            );
+          },
+          const Icon(Icons.payment_outlined,color: AppColors.secondaryColor,)
         ),
         buildNavBarItem(
           "Abonnement",
           (){
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context)=>Subscription()
+                builder: (context)=>const Subscription()
               )
             );
           },
-          Icon(Icons.payment_outlined,color: AppColors.secondaryColor,)
+          const Icon(Icons.payment_outlined,color: AppColors.secondaryColor,)
         ),
         buildNavBarItem(
           "Paramètres",
           (){
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context)=>SettingsPartner()
+                builder: (context)=>const SettingsPartner()
               )
             );
           },
-          Icon(Icons.settings_outlined,color: AppColors.secondaryColor,)
+          const Icon(Icons.settings_outlined,color: AppColors.secondaryColor,)
         ),
       ];
     return NavigationBar(
@@ -99,9 +110,13 @@ class BottomNavBar extends StatelessWidget {
       // selectedItemColor:newColor,
       selectedIndex: currentIndex,
       onDestinationSelected: (int index){
-        print("selected $index");
+        if (kDebugMode) {
+          print("selected $index");
+        }
         currentIndex = index;
-        print("current $currentIndex");
+        if (kDebugMode) {
+          print("current $currentIndex");
+        }
       },
       backgroundColor: AppTheme.theme.scaffoldBackgroundColor,
       destinations: isUser ? userNavItems.toList() : partnersNavItems.toList()

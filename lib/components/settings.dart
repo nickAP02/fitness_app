@@ -1,4 +1,4 @@
-import 'package:fitness_app/components/home/profile.dart';
+import 'package:fitness_app/components/profile.dart';
 import 'package:fitness_app/components/reusable/bottom_navbar.dart';
 import 'package:fitness_app/components/reusable/custom_appbar.dart';
 import 'package:fitness_app/components/user_params.dart';
@@ -28,10 +28,7 @@ class _SettingsState extends State<Settings> {
                 ),
               );
             },
-            leading: const Icon(
-              Icons.manage_accounts,
-              color: AppColors.secondaryColor,
-            ),
+            leading: const Icon(Icons.manage_accounts),
             title: const Text("Mon compte"),
           ),
           ListTile(
@@ -42,10 +39,7 @@ class _SettingsState extends State<Settings> {
                 ),
               );
             },
-            leading: const Icon(
-              Icons.manage_accounts,
-              color: AppColors.secondaryColor,
-            ),
+            leading: const Icon(Icons.manage_accounts),
             title: const Text("Informations personnelles"),
           ),
           // ListTile(
@@ -63,10 +57,7 @@ class _SettingsState extends State<Settings> {
           //   title: const Text("Carte de membre MyFit"),
           // ),
           const ListTile(
-            leading: Icon(
-              Icons.track_changes_rounded,
-              color: AppColors.secondaryColor,
-            ),
+            leading: Icon(Icons.track_changes_rounded),
             title: Text("Objectifs"),
           ),
           // const Divider(color: AppColors.secondaryColor,thickness: 1.5,),
@@ -79,25 +70,16 @@ class _SettingsState extends State<Settings> {
           // ),
           const Divider(color: AppColors.secondaryColor,thickness: 1.5,),
           const ListTile(
-            leading: Icon(
-              Icons.bar_chart,
-              color: AppColors.secondaryColor,
-            ),
+            leading: Icon(Icons.bar_chart),
             title: Text("Statistiques"),
           ),
           const ListTile(
-            leading: Icon(
-              Icons.menu_book,
-              color: AppColors.secondaryColor,
-            ),
+            leading: Icon(Icons.menu_book),
             title: Text("Termes et conditions d'utilisation"),
           ),
           const Divider(color: AppColors.secondaryColor,thickness: 1.5,),
           const ListTile(
-            leading: Icon(
-              Icons.info,
-              color: AppColors.secondaryColor,
-            ),
+            leading: Icon(Icons.info),
             title: Text("A propos"),
           ),
         ],

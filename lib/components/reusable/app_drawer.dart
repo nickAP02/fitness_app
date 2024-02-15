@@ -1,12 +1,9 @@
-import 'dart:developer';
 
-import 'package:fitness_app/components/home/home.dart';
+import 'package:fitness_app/features/home/home.dart';
 import 'package:fitness_app/utils/colors.dart';
 import 'package:fitness_app/utils/images.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../utils/routes.dart';
 
 class AppDrawer extends StatefulWidget {
   const AppDrawer({super.key});
@@ -16,15 +13,15 @@ class AppDrawer extends StatefulWidget {
 }
 
 class _AppDrawerState extends State<AppDrawer> {
-  String user_avatar="";
-  void logout() async{
-    log("google sign out");
-    // googleAuth.signOutWithGoogle();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    user_avatar = prefs.getString("avatar")??"";
-    // prefs.clear();
-    Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.LOGIN, (route) => false);
-  }
+  String userAvatar="";
+  // void logout() async{
+  //   log("google sign out");
+  //   // googleAuth.signOutWithGoogle();
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   userAvatar = prefs.getString("avatar")??"";
+  //   // prefs.clear();
+  //   Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.LOGIN, (route) => false);
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,7 +88,7 @@ class _AppDrawerState extends State<AppDrawer> {
               ),
               ListTile(
                 onTap: (){
-                  logout();
+                  // logout();
                 },
                 leading: const Icon(Icons.logout,color: AppColors.secondaryColor,),
                   title: const Text(

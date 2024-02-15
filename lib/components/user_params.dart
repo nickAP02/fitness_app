@@ -1,5 +1,4 @@
 import 'package:fitness_app/components/reusable/custom_appbar.dart';
-import 'package:fitness_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class UserParams extends StatefulWidget {
@@ -14,52 +13,35 @@ class _UserParamsState extends State<UserParams> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar("Informations personnelles", context),
-      body: const Column(
+      body: Column(
         children: [
-         Column(
-          
+        Column(
           children: [
             ListTile(
-              leading: Icon(Icons.data_array_rounded,color: AppColors.secondaryColor),
+              leading: const Icon(Icons.data_array_rounded),
               title:Text("Taille : ",
-              style: TextStyle(
-                color: AppColors.primaryColor
-              ),
+                style: Theme.of(context).textTheme.headlineMedium
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(right:180.0),
-              child: Text("1m80"),
-            ),
+            const Text("1m80"),
             ListTile(
-              leading: Icon(Icons.data_array_rounded,color: AppColors.secondaryColor),
+              leading: const Icon(Icons.data_array_rounded),
               title:Text("Poids : ",
-              style: TextStyle(
-                color: AppColors.primaryColor
-              ),
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(right:180.0),
-              child: Text("80 kg"),
-            ),
+            const Text("80 kg"),
             ListTile(
-            leading: Icon(Icons.bolt,color: AppColors.secondaryColor,),
+            leading: const Icon(Icons.bolt),
             title: Text(
-                "Objectif actuel",
-                style: TextStyle(
-                  color: AppColors.primaryColor
-                )
-              ),
+              "Objectif actuel",
+              style:Theme.of(context).textTheme.headlineMedium),
             ),
-            Padding(
-              padding: EdgeInsets.only(right:150.0),
-              child: Text("Perte de pois"),
-            )
+            const Text("Perte de pois")
           ],
         ),
-        ],
-      )
-      );
+      ],
+    )
+  );
   }
 }

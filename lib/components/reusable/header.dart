@@ -3,18 +3,12 @@ import 'package:flutter/material.dart';
 import '../../utils/colors.dart';
 
 // ignore: must_be_immutable
-class Header extends StatefulWidget {
+class Header extends StatelessWidget {
   String text;
   Header({
     super.key,
     required this.text
     });
-
-  @override
-  State<Header> createState() => _HeaderState();
-}
-
-class _HeaderState extends State<Header> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -29,7 +23,7 @@ class _HeaderState extends State<Header> {
           ),
         ),
         Text(
-          widget.text,
+          text,
           style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,

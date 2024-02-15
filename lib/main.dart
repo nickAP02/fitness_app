@@ -13,6 +13,7 @@ void main() async {
   await Firebase.initializeApp(
    options: DefaultFirebaseOptions.currentPlatform,
   );
+  //for loading user preferences : theme and others
   LocalStorage storage = await LocalStorage().init();
 
   runApp(const MyApp());

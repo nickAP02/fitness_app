@@ -1,29 +1,29 @@
 class TipEntity {
-  int? tip_id;
+  int? tipId;
   String? title;
   String? description;
-  int? plan_id;
+  int? planId;
 
   TipEntity({
-    this.tip_id,
+    this.tipId,
     this.title,
     this.description,
-    this.plan_id
+    this.planId
   });
 
   factory TipEntity.fromJson(Map<String,dynamic> json){
     return TipEntity(
-      tip_id: json["tip_id"],
+      tipId: json["tip_id"],
       title: json["title"],
       description: json["description"],
-      plan_id: json["plan_id"]
+      planId: json["plan_id"]
     );
   }
 
   Map<String,dynamic> toJson() =>{
-    'tip_id':tip_id,
+    'tip_id':tipId,
     'title':title,
     'description':description,
-    'plan_id':plan_id
+    'plan_id':planId
   };
 }

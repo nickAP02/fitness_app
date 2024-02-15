@@ -1,12 +1,11 @@
-import 'package:fitness_app/components/auth/view/signup_page.dart';
-import 'package:fitness_app/components/home/profile.dart';
-import 'package:fitness_app/components/home/search_page.dart';
+import 'package:fitness_app/features/config/auth/signup_page.dart';
+import 'package:fitness_app/components/profile.dart';
 import 'package:fitness_app/components/settings.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../components/home/home.dart';
-import '../components/home/notification.dart';
-import '../components/onboarding/steps.dart';
+import '../features/home/home.dart';
+import '../components/reusable/notification.dart';
 // import '../components/onboarding/splash.dart';
 
 class AppPages {
@@ -101,13 +100,6 @@ class AppPages {
         // ),
       ),
       PageEntity(
-        route: AppRoutes.SEARCH,
-        page: const Search(),
-        // bloc: BlocProvider(
-        //   create: (_) => AppBlocs(),
-        // ),
-      ),
-      PageEntity(
         route: AppRoutes.PROFILE,
         page: const Profile(),
         // bloc: BlocProvider(
@@ -142,7 +134,9 @@ class AppPages {
         );
       }
     }
-    print('invalid route name: ${settings.name}');
+    if (kDebugMode) {
+      print('invalid route name: ${settings.name}');
+    }
 
     return MaterialPageRoute(
       builder: (_) => const SignUp(),
@@ -211,10 +205,13 @@ class AppRoutes {
   // ignore: constant_identifier_names
   static const APROPOS = '/about';
   //recherche
+  // ignore: constant_identifier_names
   static const SEARCH = '/search';
   // //params
+  // ignore: constant_identifier_names
   static const PARAMS = '/params';
   //user profile
+  // ignore: constant_identifier_names
   static const PROFILE = '/profile';
   // //agenda
   // static const AGENDA = '/agenda';

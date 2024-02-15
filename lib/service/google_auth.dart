@@ -78,6 +78,7 @@ class GoogleAuth {
           
         }on FirebaseAuthException catch (e) {
           if (e.code == 'account-exists-with-different-credential') {
+            // ignore: use_build_context_synchronously
             ScaffoldMessenger.of(context).showSnackBar(
               GoogleAuth.customSnackBar(
                 content:

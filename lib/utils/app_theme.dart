@@ -1,3 +1,4 @@
+import 'package:fitness_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
   class AppTheme {
@@ -21,16 +22,16 @@ import 'package:google_fonts/google_fonts.dart';
       ),
       colorScheme: const ColorScheme(
         brightness: Brightness.dark,
-        primary: Color.fromRGBO(229, 190, 236,1),
-        onPrimary: Colors.white,
-        secondary: Color.fromRGBO(145, 127, 179,1),
-        onSecondary: Colors.white,
-        error: Color.fromRGBO(145, 127, 179,1),
-        onError: Color.fromRGBO(145, 127, 179,1),
+        primary: AppColors.primaryColor,
+        onPrimary: AppColors.primaryTextColor,
+        secondary: AppColors.secondaryColor,
+        onSecondary: AppColors.primaryTextColor,
+        error: AppColors.secondaryColor,
+        onError: AppColors.errorColor,
         background: Color.fromRGBO(145, 127, 179,1),
-        onBackground: Color.fromRGBO(145, 127, 179,1),
-        surface: Color.fromRGBO(145, 127, 179,1),
-        onSurface: Color.fromRGBO(145, 127, 179,1),
+        onBackground: AppColors.primaryTextColor,
+        surface: AppColors.primaryColor,
+        onSurface: AppColors.primaryTextColor,
       )
     );
   }

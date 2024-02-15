@@ -1,9 +1,10 @@
 import 'package:fitness_app/utils/colors.dart';
 import 'package:fitness_app/utils/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../service/local_storage.dart';
-import '../auth/view/login_page.dart';
+import '../../features/config/auth/login_page.dart';
 import '../reusable/custom_button.dart';
 
 class UserPreference extends StatefulWidget {
@@ -14,15 +15,6 @@ class UserPreference extends StatefulWidget {
 }
 
 class _UserPreferenceState extends State<UserPreference> {
-  var items = [
-    const DropdownMenuItem(child:Text("1m40")),
-    const DropdownMenuItem(child:Text("1m50")),
-    const DropdownMenuItem(child:Text("1m60")),
-    const DropdownMenuItem(child:Text("1m70")),
-    const DropdownMenuItem(child:Text("1m80")),
-    const DropdownMenuItem(child:Text("1m90")),
-    const DropdownMenuItem(child:Text("2m0")),
-  ];
   List<String> tailles = [
     "1m40",
     "1m50",
@@ -30,16 +22,34 @@ class _UserPreferenceState extends State<UserPreference> {
     "1m70",
     "1m80",
     "1m90",
-    "2m"
+    "2m",
+    "2m10",
+    "2m20",
+    "2m30",
   ]; 
-  String taille="";
-  String sexe="";
-  double poids=0;
-  bool isMaleChecked=true;
-  bool isFemaleChecked=true;
+  bool isMaleChecked=false;
+  bool isFemaleChecked=false;
+  bool? isChecked;
+  String? username;
+  String? sexe;
+  String? taille;
+  double? poids;
   final formKey = GlobalKey<FormState>();
   TextEditingController textController = TextEditingController();
   final LocalStorage storage = LocalStorage();
+  FocusNode focusNode = FocusNode();
+  void getUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    username = prefs.getString("username");
+    sexe = prefs.getString("sexe");
+    taille = prefs.getString("height");
+    poids = prefs.getDouble("weight");
+  }
+  @override
+  void initState(){
+    super.initState();
+    getUserData();
+  }
   @override
   Widget build(BuildContext context) {
     double hauteur = MediaQuery.of(context).size.height;
@@ -52,35 +62,20 @@ class _UserPreferenceState extends State<UserPreference> {
           child: Form(
             key: formKey,
             child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
-                padding: EdgeInsets.only(left:AppConstants.padding_15,bottom: AppConstants.padding_50),
-                child: Text(
-                  "Informations personnelles",
-                  style: TextStyle(
-                      fontSize: AppConstants.fontSize_30,
-                      color: Colors.white
-                  )
-                ),
+              Text(
+                "Informations personnelles",
+                style: Theme.of(context).textTheme.headlineSmall
               ),
               const SizedBox(height: AppConstants.padding_50,),
-              const Text("Quelle est votre taille ?",
-              style: TextStyle(
-                  fontSize: AppConstants.fontSize_20,
-                  color: Colors.white
-                )
+              Text("Quelle est votre taille ?",
+              style: Theme.of(context).textTheme.headlineSmall
               ),
               const SizedBox(height: AppConstants.padding_20,),
               DropdownMenu(
                 width: largeur,
-                onSelected: (taille){
-                  print("taille $taille");
-                },
-                // textStyle: const TextStyle(
-                //   fontSize: 20,
-                //   color: AppColors.primaryTextColor
-                // ),
+                onSelected: (taille){},
                 menuStyle: MenuStyle(
                   backgroundColor: MaterialStateProperty.all(AppColors.primaryColor),
                 ),
@@ -90,48 +85,51 @@ class _UserPreferenceState extends State<UserPreference> {
                     label:item,
                     value: item,
                     style: ButtonStyle(
-                      textStyle: MaterialStateProperty.all(TextStyle(
-                        fontSize: AppConstants.fontSize_10
-                      ))
+                      textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.headlineSmall)
                     )
                   )
                 ).toList()
               ),
-              const Text(
+              Text(
                 "Quel est votre poids ?",
-                style: TextStyle(
-                  fontSize: AppConstants.fontSize_20,
-                  color: Colors.white
-                )
+                style: Theme.of(context).textTheme.headlineSmall
               ),
               const SizedBox(height: AppConstants.padding_20,),
               SizedBox(
                 // height: hauteur*0.2,
                 width: largeur,
                 child: TextFormField(
+                  decoration: const InputDecoration(
+                    hintText: "Entrez votre poids actuel",
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      borderSide: BorderSide(
+                        color: AppColors.primaryColor
+                      ),
+                    )
+                  ),
                   keyboardType: const TextInputType.numberWithOptions(),
                   controller: textController,
                   validator: (value) {
-                    if(value!.isNotEmpty){
-                      return value;
+                    if(value!.isEmpty){
+                      return "Renseigner votre poids";
                     }
-                    return "Champ vide";
+                    if(value.characters.length<2){
+                      return "Votre poids doit être supérieur à $value";
+                    }
+                    return null;
                   },
                   onChanged: (value) {
                     value = textController.text;
-                    print("value $value");
                     if(value.isNotEmpty){
                       poids = double.parse(value);
                     }
                   },
                 ),
               ),
-              const Text(
+              Text(
                 "Quel est votre sexe ?",
-                style: TextStyle(
-                  fontSize: AppConstants.fontSize_20,
-                  color: Colors.white
-                )
+                style: Theme.of(context).textTheme.headlineSmall
               ),
               const SizedBox(height: AppConstants.padding_20,),
               Padding(
@@ -140,44 +138,42 @@ class _UserPreferenceState extends State<UserPreference> {
                   children: [
                     Row(
                       children: [
-                        const Text(
+                        Text(
                           "F",
-                          style: TextStyle(
-                            fontSize: AppConstants.fontSize_20,
-                            color: Colors.white
-                          )
+                          style: Theme.of(context).textTheme.headlineSmall
                         ),
                         Radio(
-                          groupValue: !isFemaleChecked,
-                          value: !isFemaleChecked, 
+                          groupValue: sexe,
+                          value: "F", 
                           onChanged: (value){
-                            setState(() {
-                              isFemaleChecked = value!;
-                              print("val $isFemaleChecked");
-                              isFemaleChecked?!isFemaleChecked:isFemaleChecked;
-                            });
+                            sexe = value;
+                            Navigator.push(
+                              context, 
+                              MaterialPageRoute(
+                                builder: (context)=>const Login()
+                              )
+                            );
                           }
                         ),
                       ],
                     ),
                     Row(
                       children: [
-                        const Text(
+                        Text(
                           "M",
-                          style: TextStyle(
-                            fontSize: AppConstants.fontSize_20,
-                            color: Colors.white
-                          )
+                          style: Theme.of(context).textTheme.headlineSmall
                         ),
                         Radio(
-                          groupValue: !isMaleChecked,
-                          value: !isMaleChecked, 
+                          groupValue: sexe,
+                          value: "M", 
                           onChanged: (value){
-                            setState(() {
-                              isMaleChecked = value!;
-                              print("val $isMaleChecked");
-                              isMaleChecked?!isMaleChecked:isMaleChecked;
-                            });
+                            sexe = value;
+                            Navigator.push(
+                              context, 
+                              MaterialPageRoute(
+                                builder: (context)=>const Login()
+                              )
+                            );
                           }
                         ),
                       ],
@@ -185,35 +181,72 @@ class _UserPreferenceState extends State<UserPreference> {
                   ],
                 ),
               ),
-              CustomButton(title:"Suivant",
-              onPressed: (){
-                storage.saveHeight(taille);
-                storage.saveWeight(poids);
-                storage.saveUserSex(sexe);
-                setState(() {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      backgroundColor: Colors.red,
-                      content: Text(
-                        "Compte crée avec succès",
-                        style:TextStyle(color: Colors.white)
-                        )
-                      )
-                  );
-                  Navigator.push(
-                    context, 
-                    MaterialPageRoute(
-                      builder: (context)=>const Login()
-                    )
-                  );
-                  
-                });
-              },)
-            ],
+              // BackButton(),
+              Row(
+                children: [
+                  CustomButton(
+                    focus:focusNode,
+                    title: "Précédent",
+                    size: MediaQuery.of(context).size.width, onPressed: (){
+                      focusNode.requestFocus();
+                    }
                   ),
+                  CustomButton(
+                    focus: focusNode,
+                    title:"Suivant",
+                    size: MediaQuery.of(context).size.width,
+                    onPressed: (){
+                      if(formKey.currentState!.validate()){
+                        // storage.saveHeight(taille);
+                        // storage.saveWeight(poids);
+                        // storage.saveUserSex(sexe);
+                        // if (kDebugMode) {
+                        //   print("sexe",prefs.getString("sexe")??"");
+                        //   print("taille",prefs.getString("height")??"");
+                        //   print("poids",prefs.getString("weight")??0);
+                        // }
+                        focusNode.requestFocus();
+                        showDialog(
+                          context: context, 
+                          builder: ((context) => const SizedBox(
+                            child: Column(
+                              children: [
+                                Icon(Icons.check_circle,color: AppColors.primaryColor,size: 100,),
+                                Text(
+                                  "Compte crée avec succès",
+                                  style:TextStyle(color: Colors.white,fontSize: AppConstants.fontSize_10)
+                                ),
+                                BackButton()
+                              ],
+                            ),
+                          )
+                          )
+                        );
+                        // setState(() {
+                        //   Navigator.push(
+                        //     context, 
+                        //     MaterialPageRoute(
+                        //       builder: (context)=>const Login()
+                        //     )
+                        //   );
+                          
+                        // });
+
+                      }
+                    },
+                  )
+                ],
+              ),
+            ],
+            ),
           ),
-      )
+        )
       ),
     );
+  }
+  @override
+  void dispose(){
+    super.dispose();
+    focusNode.dispose();
   }
 }

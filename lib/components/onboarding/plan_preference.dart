@@ -100,7 +100,7 @@ class _PlanPreferencesState extends State<PlanPreferences> {
                         storage.saveGoal(objectif);
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context)=> const UserPreference()
+                            builder: (context)=>  const UserPreference()
                           )
                         );
                     },

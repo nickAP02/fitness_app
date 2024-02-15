@@ -1,8 +1,5 @@
 import 'dart:core';
 
-import 'package:fitness_app/models/diet.dart';
-import 'package:fitness_app/models/exercise.dart';
-import 'package:http/http.dart' as http;
 
 class ApiService{
   List data = [];

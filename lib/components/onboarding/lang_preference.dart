@@ -21,7 +21,7 @@ class _LangPreferenceState extends State<LangPreference> {
   String sexe = "";
   String telephone = "";
   int lang=0;
-  var userData;
+  var userData=[];
   var borderColor=AppColors.primaryColor;
   void getUserData() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
